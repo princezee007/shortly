@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const bcrypt = require('bcryptjs');
 const path = require('path');
+const config = require('./config');
 require('dotenv').config();
 
 const app = express();
@@ -36,6 +37,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 // Trust proxy for accurate IPs behind reverse proxies/CDNs
 app.set('trust proxy', 1);
+
+// Dynamic base URL detection middleware
+app.use((req, res, next) => {
+  req.BASE_URL = `${req.protocol}://${req.get('host')}`;
+  next();
+});
 
 // Rate limiting
 const limiter = rateLimit({
@@ -189,7 +196,7 @@ app.post('/api/shorten', async (req, res) => {
       // Demo mode - return mock response
       const shortCode = customAlias || generateShortCode();
       return res.json({
-        shortUrl: `http://localhost:${PORT}/${shortCode}`,
+        shortUrl: `${req.BASE_URL}/${shortCode}`,
         originalUrl: url,
         shortCode: shortCode,
         message: 'Demo mode - URL shortening requires database connection'
@@ -226,7 +233,7 @@ app.post('/api/shorten', async (req, res) => {
     await newUrl.save();
 
     res.json({
-      shortUrl: `${process.env.BASE_URL}/${shortCode}`,
+      shortUrl: `${req.BASE_URL}/${shortCode}`,
       shortCode,
       originalUrl: url
     });
@@ -256,7 +263,7 @@ app.post('/api/bulk-shorten', async (req, res) => {
         const shortCode = generateShortCode();
         return {
           originalUrl: urlData.url || urlData,
-          shortUrl: `${process.env.BASE_URL}/${shortCode}`,
+          shortUrl: `${req.BASE_URL}/${shortCode}`,
           shortCode,
           message: 'Demo mode - Bulk shortening requires database connection'
         };
@@ -293,7 +300,7 @@ app.post('/api/bulk-shorten', async (req, res) => {
 
         results.push({
           originalUrl: url,
-          shortUrl: `${process.env.BASE_URL}/${shortCode}`,
+          shortUrl: `${req.BASE_URL}/${shortCode}`,
           shortCode
         });
       } catch (error) {
@@ -371,7 +378,7 @@ try {
           const shortCode = generateShortCode();
           return {
             originalUrl: urlData.url,
-            shortUrl: `http://localhost:${PORT}/${shortCode}`,
+            shortUrl: `${req.BASE_URL}/${shortCode}`,
             shortCode,
             message: 'Demo mode - Bulk upload requires database connection'
           };
