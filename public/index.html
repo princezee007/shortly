@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shortly - Futuristic URL Shortener</title>
+    <meta name="description" content="Experience the future of URL shortening with Shortly. Advanced analytics, QR codes, and sleek design.">
+    <meta name="keywords" content="url shortener, futuristic, cyberpunk, analytics, qr code">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔗</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            --cyber-blue: #00d4ff;
+            --cyber-purple: #8b5cf6;
+            --cyber-pink: #ff6b9d;
+            --cyber-orange: #ff8c42;
+            --cyber-yellow: #ffd23f;
+            --cyber-green: #4ade80;
+            --cyber-red: #ff4757;
+            --dark-bg: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --link-color: #00d4ff;
+            --link-hover: #ff6b9d;
+            --shadow-glow: 0 0 30px rgba(0, 212, 255, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+             position: fixed;
+             top: 0;
+             left: 0;
+             width: 100%;
+             height: 100%;
+             z-index: -2;
+             background: 
+                 radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.12) 0%, transparent 60%),
+                 radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.12) 0%, transparent 60%),
+                 radial-gradient(circle at 40% 40%, rgba(255, 107, 157, 0.12) 0%, transparent 60%),
+                 radial-gradient(circle at 60% 70%, rgba(255, 140, 66, 0.08) 0%, transparent 50%);
+             animation: bg-shift 15s ease-in-out infinite;
+         }
+
+         @keyframes bg-shift {
+             0%, 100% { transform: scale(1) rotate(0deg); }
+             50% { transform: scale(1.1) rotate(2deg); }
+         }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                 linear-gradient(45deg, transparent 24%, rgba(74, 222, 128, 0.08) 25%, rgba(74, 222, 128, 0.08) 26%, transparent 27%, transparent 74%, rgba(74, 222, 128, 0.08) 75%, rgba(74, 222, 128, 0.08) 76%, transparent 77%, transparent),
+                 linear-gradient(-45deg, transparent 24%, rgba(168, 85, 247, 0.08) 25%, rgba(168, 85, 247, 0.08) 26%, transparent 27%, transparent 74%, rgba(168, 85, 247, 0.08) 75%, rgba(168, 85, 247, 0.08) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            animation: grid-move 20s linear infinite;
+        }
+
+        @keyframes grid-move {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Glass Morphism Components */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--cyber-blue), var(--cyber-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(45deg, var(--cyber-blue), var(--cyber-purple));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover::after {
+            transform: scaleX(1);
+        }
+
+        .nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav a {
+            color: var(--link-color);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.8rem 1.5rem;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid transparent;
+        }
+
+        .nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav a:hover {
+            color: var(--link-hover);
+            background: rgba(255, 107, 157, 0.1);
+            border: 1px solid var(--link-hover);
+            box-shadow: 0 0 20px rgba(255, 107, 157, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .nav a:hover::before {
+            left: 100%;
+        }
+
+        /* General link styles */
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--link-hover);
+        }
+
+        /* Result links */
+        .result a {
+            color: var(--cyber-green);
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            background: rgba(74, 222, 128, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            display: inline-block;
+            margin: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .result a:hover {
+            background: rgba(74, 222, 128, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 222, 128, 0.3);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 100px;
+            min-height: calc(100vh - 100px);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--cyber-blue), var(--cyber-purple), var(--cyber-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow-pulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow-pulse {
+            from { filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.5)); }
+            to { filter: drop-shadow(0 0 30px rgba(139, 92, 246, 0.7)); }
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Shortener Form */
+        .shortener-section {
+            padding: 2rem 0;
+        }
+
+        .shortener-form {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            padding: 3rem;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .shortener-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyber-blue), transparent);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            font-size: 1rem;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--cyber-blue);
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.4), inset 0 0 10px rgba(0, 212, 255, 0.1);
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .form-group input:hover,
+        .form-group textarea:hover,
+        .form-group select:hover {
+            border-color: rgba(0, 212, 255, 0.5);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        /* Buttons */
+        .btn {
+            background: linear-gradient(135deg, var(--cyber-blue), var(--cyber-purple));
+            color: var(--text-primary);
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.6);
+            background: linear-gradient(135deg, #00e5ff, #9c27b0);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--cyber-purple), var(--cyber-pink));
+            margin-left: 1rem;
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.4);
+            border: 1px solid rgba(255, 107, 157, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #9c27b0, #ff1744);
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.6);
+        }
+
+        /* Results */
+        .result {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            padding: 2rem;
+            border-radius: 20px;
+            margin-top: 2rem;
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+
+        .result.error {
+            border-color: rgba(239, 68, 68, 0.3);
+            background: rgba(239, 68, 68, 0.05);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* QR Code Section */
+        .qr-options {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem auto;
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .qr-options h3 {
+            color: var(--cyber-purple);
+            font-family: 'Orbitron', monospace;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .qr-code-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--glass-bg);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            max-width: 400px;
+        }
+
+        .qr-code-container canvas {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+            border: 2px solid var(--cyber-blue);
+        }
+
+        .qr-options select,
+        .qr-options input[type="color"] {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .qr-options select:focus,
+        .qr-options input[type="color"]:focus {
+            outline: none;
+            border-color: var(--cyber-purple);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+        }
+
+        /* Enhanced QR Code Display Styles */
+        .qr-display-card {
+            background: linear-gradient(135deg, var(--glass-bg), rgba(0, 255, 255, 0.05));
+            border: 2px solid var(--cyber-blue);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 8px 32px rgba(0, 255, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            animation: qrCardGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes qrCardGlow {
+            0% { box-shadow: 0 8px 32px rgba(0, 255, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1); }
+            100% { box-shadow: 0 12px 40px rgba(0, 255, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2); }
+        }
+
+        .qr-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--cyber-blue);
+        }
+
+        .qr-header h3 {
+            margin: 0;
+            color: var(--cyber-blue);
+            font-size: 1.4rem;
+            text-shadow: 0 0 15px var(--cyber-blue);
+        }
+
+        .qr-status {
+            background: linear-gradient(45deg, var(--cyber-green), var(--cyber-blue));
+            color: var(--dark-bg);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            animation: statusPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes statusPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        .qr-image-wrapper {
+            position: relative;
+            display: inline-block;
+            margin: 1.5rem 0;
+        }
+
+        .qr-glow-effect {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, var(--cyber-blue), var(--cyber-purple), var(--cyber-pink));
+            border-radius: 15px;
+            opacity: 0.3;
+            filter: blur(15px);
+            animation: qrGlow 4s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes qrGlow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.1); }
+        }
+
+        .qr-image {
+            border: 3px solid var(--cyber-blue);
+            border-radius: 12px;
+            background: white;
+            padding: 10px;
+            box-shadow: 0 4px 20px rgba(0, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .qr-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 30px rgba(0, 255, 255, 0.5);
+        }
+
+        .qr-scan-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--cyber-green), transparent);
+            animation: scanAnimation 3s linear infinite;
+        }
+
+        @keyframes scanAnimation {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(200px); opacity: 0; }
+        }
+
+        .qr-info {
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .qr-description {
+            color: var(--text-secondary);
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+        }
+
+        .qr-url-preview {
+            background: var(--dark-bg);
+            border: 1px solid var(--cyber-purple);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            color: var(--cyber-purple);
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            word-break: break-all;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .qr-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        .qr-download-btn {
+            background: linear-gradient(135deg, var(--cyber-blue), var(--cyber-purple));
+            color: var(--text-primary);
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            min-width: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .qr-download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .qr-download-btn:hover {
+            background: linear-gradient(135deg, var(--cyber-purple), var(--cyber-pink));
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(0, 255, 255, 0.6);
+        }
+
+        .qr-download-btn:hover::before {
+            left: 100%;
+        }
+
+        .qr-download-btn:active {
+            transform: translateY(-1px) scale(1.01);
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.5);
+        }
+
+        .qr-copy-btn {
+            background: linear-gradient(135deg, var(--cyber-green), var(--cyber-blue));
+            color: var(--text-primary);
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 255, 0, 0.4);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            min-width: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .qr-copy-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .qr-copy-btn:hover {
+             background: linear-gradient(135deg, var(--cyber-blue), var(--cyber-green));
+             transform: translateY(-3px) scale(1.02);
+             box-shadow: 0 12px 30px rgba(0, 255, 0, 0.6);
+         }
+
+        .qr-copy-btn:hover::before {
+            left: 100%;
+        }
+
+        .qr-copy-btn:active {
+            transform: translateY(-1px) scale(1.01);
+            box-shadow: 0 4px 15px rgba(0, 255, 0, 0.5);
+        }
+
+         /* Bulk QR Code Styles */
+         .bulk-qr-display {
+             display: flex;
+             flex-direction: column;
+             align-items: center;
+             gap: 0.5rem;
+             padding: 1rem;
+             background: linear-gradient(135deg, var(--glass-bg), rgba(0, 255, 255, 0.05));
+             border: 1px solid var(--cyber-blue);
+             border-radius: 12px;
+             backdrop-filter: blur(10px);
+         }
+
+         .bulk-qr-wrapper {
+             position: relative;
+             display: inline-block;
+         }
+
+         .bulk-qr-image {
+             border: 2px solid var(--cyber-blue);
+             border-radius: 8px;
+             background: white;
+             padding: 5px;
+             box-shadow: 0 2px 10px rgba(0, 255, 255, 0.3);
+             transition: all 0.3s ease;
+             max-width: 80px;
+             height: auto;
+         }
+
+         .bulk-qr-image:hover {
+             transform: scale(1.1);
+             box-shadow: 0 4px 15px rgba(0, 255, 255, 0.5);
+         }
+
+         .bulk-qr-overlay {
+             position: absolute;
+             top: 0;
+             left: 0;
+             right: 0;
+             bottom: 0;
+             pointer-events: none;
+             border-radius: 8px;
+             overflow: hidden;
+         }
+
+         .bulk-scan-line {
+             position: absolute;
+             top: 0;
+             left: 0;
+             right: 0;
+             height: 1px;
+             background: linear-gradient(90deg, transparent, var(--cyber-green), transparent);
+             animation: bulkScanAnimation 2s linear infinite;
+         }
+
+         @keyframes bulkScanAnimation {
+             0% { transform: translateY(0); opacity: 1; }
+             100% { transform: translateY(80px); opacity: 0; }
+         }
+
+         .bulk-qr-btn {
+             background: linear-gradient(135deg, var(--cyber-blue), var(--cyber-purple));
+             border: none;
+             border-radius: 8px;
+             color: var(--text-primary);
+             font-size: 0.75rem;
+             padding: 0.4rem 0.8rem;
+             font-weight: 600;
+             cursor: pointer;
+             transition: all 0.3s ease;
+             text-transform: uppercase;
+             letter-spacing: 0.5px;
+             position: relative;
+             overflow: hidden;
+             box-shadow: 0 3px 12px rgba(0, 212, 255, 0.3);
+             border: 1px solid rgba(0, 212, 255, 0.2);
+             min-width: 90px;
+             display: inline-flex;
+             align-items: center;
+             justify-content: center;
+             gap: 0.3rem;
+         }
+
+         .bulk-qr-btn::before {
+             content: '';
+             position: absolute;
+             top: 0;
+             left: -100%;
+             width: 100%;
+             height: 100%;
+             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+             transition: left 0.4s;
+         }
+
+         .bulk-qr-btn:hover {
+             background: linear-gradient(135deg, var(--cyber-purple), var(--cyber-pink));
+             transform: translateY(-2px) scale(1.05);
+             box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
+         }
+
+         .bulk-qr-btn:hover::before {
+             left: 100%;
+         }
+
+         .bulk-qr-btn:active {
+             transform: translateY(-1px) scale(1.02);
+             box-shadow: 0 3px 10px rgba(0, 255, 255, 0.4);
+         }
+
+         /* QR Row in tables */
+         .qr-row {
+             background: linear-gradient(135deg, var(--dark-bg), rgba(0, 255, 255, 0.02));
+             border: 1px solid var(--cyber-blue);
+         }
+
+         .qr-row td {
+             background: transparent !important;
+             border-color: var(--cyber-blue) !important;
+         }
+
+        /* Enhanced Bulk Section */
+        .bulk-section {
+            background: linear-gradient(135deg, var(--glass-bg), rgba(139, 92, 246, 0.03));
+            backdrop-filter: blur(25px);
+            border: 2px solid var(--cyber-purple);
+            border-radius: 25px;
+            padding: 3rem;
+            margin: 3rem 0;
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bulk-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(139, 92, 246, 0.05), transparent);
+            pointer-events: none;
+            animation: bulkSectionShimmer 4s ease-in-out infinite;
+        }
+
+        @keyframes bulkSectionShimmer {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .bulk-section h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, var(--cyber-purple), var(--cyber-pink), var(--cyber-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px var(--cyber-purple);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* File Upload */
+        .file-upload {
+            border: 2px dashed var(--cyber-purple);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(0, 255, 255, 0.02));
+        }
+
+        .file-upload::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .file-upload:hover {
+            border-color: var(--cyber-blue);
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(139, 92, 246, 0.05));
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2);
+        }
+
+        .file-upload:hover::before {
+            opacity: 1;
+        }
+
+        .file-upload.dragover {
+            border-color: var(--cyber-green);
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.1), rgba(0, 255, 255, 0.05));
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 255, 0, 0.3);
+        }
+
+        /* Enhanced Download CSV Button */
+        .btn[data-action="download-bulk-csv"] {
+            background: linear-gradient(135deg, var(--cyber-orange), var(--cyber-yellow));
+            border: 2px solid var(--cyber-orange);
+            color: var(--dark-bg);
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(255, 165, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            margin-top: 2rem;
+        }
+
+        .btn[data-action="download-bulk-csv"]:hover {
+            background: linear-gradient(135deg, var(--cyber-yellow), var(--cyber-orange));
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(255, 165, 0, 0.5);
+        }
+
+        .btn[data-action="download-bulk-csv"]::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn[data-action="download-bulk-csv"]:hover::before {
+            left: 100%;
+        }
+
+        /* Loading States */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--glass-border);
+            border-top: 3px solid var(--cyber-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .shortener-form {
+                padding: 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-secondary {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+        }
+
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 1rem 1.5rem;
+            color: var(--text-primary);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 1001;
+            animation: slideInRight 0.3s ease;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Table styles moved to styles.css */
+
+        /* Enhanced URL styling in tables */
+        .short-url {
+            color: var(--cyber-blue) !important;
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            padding: 0.3rem 0.8rem;
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .short-url:hover {
+            background: rgba(0, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            transform: scale(1.05);
+        }
+
+        /* Enhanced Action buttons in tables */
+        .action-btn {
+            padding: 0.6rem 1.2rem;
+            margin: 0 0.3rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: none;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .action-btn:hover::before {
+            left: 100%;
+        }
+
+        .action-btn.copy {
+            background: linear-gradient(135deg, var(--cyber-green), #10b981);
+            color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .action-btn.analytics {
+            background: linear-gradient(135deg, var(--cyber-purple), var(--cyber-pink));
+            color: white;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px) scale(1.08);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .action-btn.copy:hover {
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.5);
+        }
+
+        .action-btn.analytics:hover {
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.5);
+        }
+
+        /* Bulk results container enhancement */
+        .bulk-results {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--glass-bg), rgba(0, 255, 255, 0.02));
+            border: 2px solid var(--cyber-blue);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2);
+        }
+
+        .bulk-results h3 {
+            color: var(--cyber-green);
+            font-family: 'Orbitron', monospace;
+            text-shadow: 0 0 15px var(--cyber-green);
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+        }
+
+        /* Analytics Section */
+        .analytics-section {
+            background: linear-gradient(135deg, var(--glass-bg), rgba(0, 212, 255, 0.05));
+            backdrop-filter: blur(25px);
+            border: 2px solid var(--cyber-blue);
+            border-radius: 25px;
+            padding: 3rem;
+            margin: 3rem 0;
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .analytics-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(0, 212, 255, 0.08), transparent);
+            pointer-events: none;
+            animation: analyticsSectionShimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes analyticsSectionShimmer {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .analytics-section h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--cyber-blue), var(--cyber-purple), var(--cyber-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Analytics Styles */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(139, 92, 246, 0.1));
+            border: 2px solid var(--cyber-blue);
+            border-radius: 15px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.15);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--cyber-pink);
+            box-shadow: 0 15px 35px rgba(255, 107, 157, 0.2);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--cyber-blue), var(--cyber-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .stat-card div:last-child {
+            color: var(--text-primary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+        
+        .chart-container {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(0, 212, 255, 0.03));
+            border-radius: 15px;
+            border: 2px solid var(--glass-border);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .chart-bar {
+            display: flex;
+            align-items: center;
+            margin: 1rem 0;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .chart-bar:hover {
+            background: rgba(0, 212, 255, 0.05);
+            transform: translateX(5px);
+        }
+        
+        .chart-label {
+            min-width: 120px;
+            margin-right: 1rem;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        
+        .chart-bar-fill {
+            height: 25px;
+            background: linear-gradient(90deg, var(--cyber-blue), var(--cyber-purple), var(--cyber-pink));
+            border-radius: 12px;
+            margin-right: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 212, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-bar-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: chartShimmer 2s infinite;
+        }
+
+        @keyframes chartShimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .chart-value {
+            font-size: 1rem;
+            color: var(--cyber-blue);
+            font-weight: 600;
+            min-width: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">SHORTLY</a>
+                <nav class="nav">
+                    <a href="#shortener">Shorten</a>
+                    <a href="#bulk">Bulk</a>
+                    <a href="#analytics">Analytics</a>
+                    <a href="#contact">Contact</a>
+                    <a href="#about">About</a>
+                </nav>
+                <button class="mobile-menu-toggle" data-action="toggle-mobile-menu">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="hero">
+                 <h1>FUTURE OF URL SHORTENING</h1>
+                 <p>Experience next-generation link management with advanced analytics, quantum-fast processing, and cyberpunk aesthetics.</p>
+                 
+                 <!-- Top Banner Ad -->
+                 <div class="ad-banner glass" style="margin: 2rem 0; padding: 1.5rem; text-align: center;">
+                     <h3 style="color: var(--cyber-yellow); margin-bottom: 1rem;">📢 Sponsored</h3>
+                     <div style="background: rgba(255, 255, 255, 0.05); border: 2px dashed var(--glass-border); padding: 2rem; border-radius: 10px; color: var(--text-secondary);">
+                         Google AdSense Banner - 728x90
+                     </div>
+                     <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);"><small>Ads help keep Shortly free for everyone</small></p>
+                 </div>
+             </section>
+
+            <section id="shortener" class="shortener-section">
+                <form id="shortenForm" class="shortener-form glass">
+                    <div class="form-group">
+                        <label for="url">🌐 URL to Shorten</label>
+                        <div class="input-wrapper">
+                            <input type="url" id="url" name="url" placeholder="https://example.com" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="customAlias">🎯 Custom Alias (Optional)</label>
+                            <input type="text" id="customAlias" name="customAlias" placeholder="my-link">
+                        </div>
+                        <div class="form-group">
+                            <label for="expiresAt">⏰ Expiration (Optional)</label>
+                            <input type="datetime-local" id="expiresAt" name="expiresAt">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn">🚀 Generate Link</button>
+                </form>
+
+                <div id="loading" class="loading">
+                    <div class="spinner"></div>
+                    <p>Processing your request...</p>
+                </div>
+
+                <div id="result" class="result"></div>
+
+                <div id="qrOptions" class="qr-options glass" style="display: none;">
+                    <h3>🎨 QR Code Customization</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="qrSize">Size</label>
+                            <select id="qrSize">
+                                <option value="150">Small (150px)</option>
+                                <option value="200" selected>Medium (200px)</option>
+                                <option value="300">Large (300px)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="qrColor">Color</label>
+                            <input type="color" id="qrColor" value="#000000">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="qrBgColor">Background</label>
+                            <input type="color" id="qrBgColor" value="#ffffff">
+                        </div>
+                        <div class="form-group">
+                            <button type="button" data-action="generate-qr" class="btn">📱 Generate QR</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="qrCode" class="qr-code-container"></div>
+            </section>
+
+            <section id="bulk" class="bulk-section glass">
+                <h2>⚡ BULK PROCESSING</h2>
+                <p>Upload a file or paste multiple URLs for quantum-speed bulk shortening.</p>
+                
+                <div class="file-upload" id="fileUploadArea">
+                    <div class="upload-content">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">📁</div>
+                        <h3>Drop files here or click to upload</h3>
+                        <p>Supports CSV, TXT files with URLs</p>
+                        <input type="file" id="csvFile" accept=".csv,.txt" style="display: none;">
+                        <button type="button" data-action="trigger-file-upload" class="btn" style="margin-top: 1rem;">Choose File</button>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 2rem;">
+                    <label for="bulkUrls">📝 Or paste URLs (one per line)</label>
+                    <textarea id="bulkUrls" rows="6" placeholder="https://example1.com&#10;https://example2.com&#10;https://example3.com" style="font-family: 'Courier New', monospace; line-height: 1.5;"></textarea>
+                </div>
+
+                <button type="button" data-action="bulk-shorten" class="btn">⚡ Process All URLs</button>
+                
+                <div id="bulkResult" class="result"></div>
+            </section>
+
+            <section id="analytics" class="analytics-section glass">
+                 <h2>📊 ANALYTICS DASHBOARD</h2>
+                 <p>Real-time insights and quantum analytics for your shortened links.</p>
+                 
+                 <div class="form-group">
+                     <label for="analyticsCode">🔍 Enter Short Code</label>
+                     <input type="text" id="analyticsCode" placeholder="abc123" style="margin-bottom: 1rem;">
+                 </div>
+                 
+                 <button type="button" data-action="get-analytics" class="btn">📈 View Analytics</button>
+                 
+                 <div id="analyticsResult" class="result">
+                     <div id="statsGrid" class="stats-grid"></div>
+                     <div id="analyticsResults" style="display: none;">
+                         <div id="analyticsCharts"></div>
+                     </div>
+                 </div>
+              </section>
+
+              <section id="about" class="analytics-section glass">
+                  <h2>🚀 ABOUT SHORTLY</h2>
+                  <p>The future of URL shortening is here. Experience next-generation link management with cutting-edge technology.</p>
+                  
+                  <div class="stats-grid" style="margin: 2rem 0;">
+                      <div class="stat-card glass">
+                          <div class="stat-icon">⚡</div>
+                          <div class="stat-value">99.9%</div>
+                          <div class="stat-label">Uptime</div>
+                      </div>
+                      <div class="stat-card glass">
+                          <div class="stat-icon">🔒</div>
+                          <div class="stat-value">256-bit</div>
+                          <div class="stat-label">Encryption</div>
+                      </div>
+                      <div class="stat-card glass">
+                          <div class="stat-icon">📊</div>
+                          <div class="stat-value">Real-time</div>
+                          <div class="stat-label">Analytics</div>
+                      </div>
+                      <div class="stat-card glass">
+                          <div class="stat-icon">🌐</div>
+                          <div class="stat-value">Global</div>
+                          <div class="stat-label">CDN</div>
+                      </div>
+                  </div>
+
+                  <div class="form-row" style="margin: 2rem 0;">
+                      <div style="flex: 1;">
+                          <h3 style="color: var(--cyber-blue); margin-bottom: 1rem;">🎯 Features</h3>
+                          <ul style="list-style: none; padding: 0;">
+                              <li style="margin: 0.5rem 0; color: var(--text-secondary);">✨ Quantum-fast URL processing</li>
+                              <li style="margin: 0.5rem 0; color: var(--text-secondary);">📱 Dynamic QR code generation</li>
+                              <li style="margin: 0.5rem 0; color: var(--text-secondary);">📊 Advanced analytics dashboard</li>
+                              <li style="margin: 0.5rem 0; color: var(--text-secondary);">⚡ Bulk URL processing</li>
+                              <li style="margin: 0.5rem 0; color: var(--text-secondary);">🔒 Enterprise-grade security</li>
+                              <li style="margin: 0.5rem 0; color: var(--text-secondary);">🌐 Global content delivery</li>
+                          </ul>
+                      </div>
+                      <div style="flex: 1;">
+                          <h3 style="color: var(--cyber-purple); margin-bottom: 1rem;">🛡️ Technology</h3>
+                          <ul style="list-style: none; padding: 0;">
+                              <li style="margin: 0.5rem 0; color: var(--text-secondary);">🔧 Node.js & Express backend</li>
+                              <li style="margin: 0.5rem 0; color: var(--text-secondary);">🗄️ MongoDB database</li>
+                              <li style="margin: 0.5rem 0; color: var(--text-secondary);">🎨 Cyberpunk UI design</li>
+                              <li style="margin: 0.5rem 0; color: var(--text-secondary);">📱 Responsive web design</li>
+                              <li style="margin: 0.5rem 0; color: var(--text-secondary);">⚡ Real-time processing</li>
+                              <li style="margin: 0.5rem 0; color: var(--text-secondary);">🔐 Secure data handling</li>
+                          </ul>
+                      </div>
+                  </div>
+
+                  <div style="text-align: center; margin: 2rem 0; padding: 2rem; background: linear-gradient(135deg, var(--glass-bg), rgba(0, 255, 255, 0.05)); border: 1px solid var(--cyber-blue); border-radius: 15px;">
+                      <h3 style="color: var(--cyber-green); margin-bottom: 1rem;">🌟 Ready to Get Started?</h3>
+                      <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">Join thousands of users who trust Shortly for their link management needs.</p>
+                      <button type="button" id="startShorteningBtn" class="btn" data-action="start-shortening">🚀 Start Shortening</button>
+                  </div>
+              </section>
+
+              <!-- Contact Section -->
+              <section id="contact" class="analytics-section glass">
+                  <h2>📞 CONTACT US</h2>
+                  <p>Get in touch for sponsorships, partnerships, business inquiries, or support.</p>
+                  
+                  <div class="stats-grid" style="margin: 2rem 0;">
+                      <div class="stat-card glass">
+                          <div class="stat-icon">📧</div>
+                          <div class="stat-value">Email</div>
+                          <div class="stat-label"><a href="mailto:contact@shortly.com" style="color: var(--cyber-blue); text-decoration: none;">contact@shortly.com</a></div>
+                      </div>
+                      <div class="stat-card glass">
+                          <div class="stat-icon">💼</div>
+                          <div class="stat-value">Business</div>
+                          <div class="stat-label"><a href="mailto:business@shortly.com" style="color: var(--cyber-blue); text-decoration: none;">business@shortly.com</a></div>
+                      </div>
+                      <div class="stat-card glass">
+                          <div class="stat-icon">🤝</div>
+                          <div class="stat-value">Sponsors</div>
+                          <div class="stat-label"><a href="mailto:sponsors@shortly.com" style="color: var(--cyber-blue); text-decoration: none;">sponsors@shortly.com</a></div>
+                      </div>
+                      <div class="stat-card glass">
+                          <div class="stat-icon">🛠️</div>
+                          <div class="stat-value">Support</div>
+                          <div class="stat-label"><a href="mailto:support@shortly.com" style="color: var(--cyber-blue); text-decoration: none;">support@shortly.com</a></div>
+                      </div>
+                  </div>
+
+                  <div class="form-row" style="margin: 2rem 0;">
+                      <div style="flex: 1; margin-right: 1rem;">
+                          <h3 style="color: var(--cyber-green); margin-bottom: 1rem;">💰 Sponsorship Opportunities</h3>
+                          <ul style="list-style: none; padding: 0;">
+                              <li style="margin: 0.5rem 0; color: var(--text-secondary);">🎯 Banner advertisements</li>
+                              <li style="margin: 0.5rem 0; color: var(--text-secondary);">📊 Analytics partnerships</li>
+                              <li style="margin: 0.5rem 0; color: var(--text-secondary);">🔗 Link branding options</li>
+                              <li style="margin: 0.5rem 0; color: var(--text-secondary);">📱 Mobile app integration</li>
+                              <li style="margin: 0.5rem 0; color: var(--text-secondary);">🌐 Custom domain solutions</li>
+                          </ul>
+                      </div>
+                      <div style="flex: 1; margin-left: 1rem;">
+                          <h3 style="color: var(--cyber-purple); margin-bottom: 1rem;">🤝 Partnership Benefits</h3>
+                          <ul style="list-style: none; padding: 0;">
+                              <li style="margin: 0.5rem 0; color: var(--text-secondary);">📈 High traffic exposure</li>
+                              <li style="margin: 0.5rem 0; color: var(--text-secondary);">🎯 Targeted audience reach</li>
+                              <li style="margin: 0.5rem 0; color: var(--text-secondary);">📊 Detailed analytics reports</li>
+                              <li style="margin: 0.5rem 0; color: var(--text-secondary);">🔄 Flexible campaign options</li>
+                              <li style="margin: 0.5rem 0; color: var(--text-secondary);">💎 Premium placement options</li>
+                          </ul>
+                      </div>
+                  </div>
+
+                  <div style="text-align: center; margin: 2rem 0; padding: 2rem; background: linear-gradient(135deg, var(--glass-bg), rgba(0, 255, 255, 0.05)); border: 1px solid var(--cyber-green); border-radius: 15px;">
+                      <h3 style="color: var(--cyber-green); margin-bottom: 1rem;">💌 Quick Contact Form</h3>
+                      <div class="form-row" style="gap: 1rem; margin-bottom: 1rem;">
+                          <input type="text" id="contactName" placeholder="Your Name" style="flex: 1;">
+                          <input type="email" id="contactEmail" placeholder="Your Email" style="flex: 1;">
+                      </div>
+                      <div class="form-group" style="margin-bottom: 1rem;">
+                          <select id="contactType" style="width: 100%; padding: 0.75rem; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text-primary);">
+                              <option value="">Select Inquiry Type</option>
+                              <option value="sponsorship">💰 Sponsorship Inquiry</option>
+                              <option value="partnership">🤝 Partnership Opportunity</option>
+                              <option value="business">💼 Business Inquiry</option>
+                              <option value="support">🛠️ Technical Support</option>
+                              <option value="other">📝 Other</option>
+                          </select>
+                      </div>
+                      <div class="form-group" style="margin-bottom: 1rem;">
+                          <textarea id="contactMessage" placeholder="Your message..." rows="4" style="width: 100%; padding: 0.75rem; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text-primary); resize: vertical;"></textarea>
+                      </div>
+                      <button type="button" onclick="sendContactForm()" class="btn">📧 Send Message</button>
+                  </div>
+              </section>
+              
+              <!-- Side Banner Ad -->
+              <div class="ad-banner glass" style="margin: 3rem 0; padding: 2rem; text-align: center;">
+                  <h3 style="color: var(--cyber-orange); margin-bottom: 1rem;">🎯 Featured Sponsor</h3>
+                  <div style="background: rgba(255, 255, 255, 0.05); border: 2px dashed var(--glass-border); padding: 2rem; border-radius: 10px; color: var(--text-secondary);">
+                      Vertical Banner Ad - 300x250
+                  </div>
+                  <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);"><small>Support Shortly by checking out our sponsors</small></p>
+              </div>
+         </div>
+     </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

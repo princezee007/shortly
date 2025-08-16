@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Link Not Found | Shortly</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 600px;
+            padding: 2rem;
+        }
+
+        .error-code {
+            font-size: 8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .error-message {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .error-description {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 30px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0 10px;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .suggestions {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .suggestions h3 {
+            margin-bottom: 1rem;
+        }
+
+        .suggestions ul {
+            list-style: none;
+            text-align: left;
+        }
+
+        .suggestions li {
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .suggestions li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🔗</div>
+        <div class="error-code">404</div>
+        <div class="error-message">Link Not Found</div>
+        <div class="error-description">
+            The short URL you're looking for doesn't exist or may have expired.
+        </div>
+        
+        <div>
+            <a href="/" class="btn">🏠 Go Home</a>
+            <a href="/#shortener" class="btn">🔗 Create Short URL</a>
+        </div>
+        
+        <div class="suggestions">
+            <h3>💡 What you can do:</h3>
+            <ul>
+                <li>Check if the URL was typed correctly</li>
+                <li>The link might have expired</li>
+                <li>Create a new short URL on our homepage</li>
+                <li>Contact the person who shared this link</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

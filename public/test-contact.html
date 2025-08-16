@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Form Test</title>
+</head>
+<body>
+    <h1>Contact Form Test</h1>
+    
+    <div>
+        <input type="text" id="contactName" placeholder="Your Name" value="Test User">
+        <input type="email" id="contactEmail" placeholder="Your Email" value="test@example.com">
+        <select id="contactType">
+            <option value="">Select Type</option>
+            <option value="sponsorship" selected>Sponsorship</option>
+            <option value="business">Business</option>
+        </select>
+        <textarea id="contactMessage" placeholder="Message">Test message</textarea>
+        <button onclick="sendContactForm()">Send Message</button>
+        <button onclick="testFunction()">Test Function</button>
+    </div>
+    
+    <script>
+        function testFunction() {
+            console.log('Test function called');
+            alert('Test function works!');
+        }
+        
+        function showNotification(message) {
+            console.log('Notification:', message);
+            alert(message);
+        }
+        
+        function sendContactForm() {
+            console.log('sendContactForm called');
+            const name = document.getElementById('contactName').value.trim();
+            const email = document.getElementById('contactEmail').value.trim();
+            const type = document.getElementById('contactType').value;
+            const message = document.getElementById('contactMessage').value.trim();
+            
+            console.log('Form values:', { name, email, type, message });
+            
+            // Basic validation
+            if (!name || !email || !type || !message) {
+                showNotification('Please fill in all fields');
+                return;
+            }
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showNotification('Please enter a valid email address');
+                return;
+            }
+            
+            // Create mailto link
+            const subject = encodeURIComponent(`Test Contact - ${name}`);
+            const body = encodeURIComponent(
+                `Name: ${name}\n` +
+                `Email: ${email}\n` +
+                `Type: ${type}\n\n` +
+                `Message:\n${message}`
+            );
+            
+            const mailtoLink = `mailto:contact@shortly.com?subject=${subject}&body=${body}`;
+            
+            console.log('Opening mailto:', mailtoLink);
+            window.location.href = mailtoLink;
+            
+            showNotification('Opening email client...');
+        }
+    </script>
+</body>
+</html>

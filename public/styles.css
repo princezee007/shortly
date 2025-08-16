@@ -1,0 +1,105 @@
+/* Enhanced Table Styles for Analytics */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.9));
+    backdrop-filter: blur(25px);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 3px solid var(--cyber-blue);
+    box-shadow: 0 15px 40px rgba(0, 255, 255, 0.4), inset 0 1px 0 rgba(0, 255, 255, 0.1);
+    position: relative;
+}
+
+table::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.05), transparent);
+    pointer-events: none;
+    animation: tableShimmer 3s ease-in-out infinite;
+}
+
+@keyframes tableShimmer {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}
+
+th, td {
+    padding: 1.2rem 1.8rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    position: relative;
+}
+
+th {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.8), rgba(139, 92, 246, 0.8));
+    font-weight: 700;
+    color: #ffffff;
+    font-family: 'Orbitron', monospace;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.95rem;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-bottom: 3px solid var(--cyber-blue);
+}
+
+th:first-child {
+    border-top-left-radius: 18px;
+}
+
+th:last-child {
+    border-top-right-radius: 18px;
+}
+
+tbody tr {
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+tbody tr:hover {
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(139, 92, 246, 0.2));
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(0, 255, 255, 0.3);
+}
+
+tbody tr:hover td {
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+}
+
+td {
+    transition: all 0.4s ease;
+    color: #00ffff;
+    font-weight: 600;
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+}
+
+/* Enhanced URL styling in tables */
+.short-url {
+    color: var(--cyber-blue) !important;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.short-url:hover {
+    color: #ffffff !important;
+    text-shadow: 0 0 10px var(--cyber-blue);
+    transform: scale(1.05);
+}
+
+/* Cyberpunk color variables */
+:root {
+    --cyber-blue: #00d4ff;
+    --cyber-purple: #8b5cf6;
+    --cyber-pink: #ec4899;
+    --cyber-green: #10b981;
+}
