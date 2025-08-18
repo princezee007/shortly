@@ -561,9 +561,10 @@ app.get('/:shortCode', async (req, res) => {
       <!DOCTYPE html>
       <html>
       <head>
-        <title>Shortly - Redirecting...</title>
+        <title>iShortly - Redirecting...</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="monetag" content="35a1b3d5c8f9e2a4b6d8f1a3c5e7b9d2">
         <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
         <style>
           :root {
@@ -780,11 +781,24 @@ app.get('/:shortCode', async (req, res) => {
       <body>
         <div class="bg-animation"></div>
         <div class="container glass">
-          <div class="logo">🔗 Shortly</div>
+          <div class="logo">🔗 iShortly</div>
           <div class="ad-banner">
             <h3>📢 Advertisement</h3>
             <p>Support free URL shortening by viewing this ad</p>
-            <div class="ad-space">Ad Space - 728x90</div>
+            <div class="ad-space">
+              <!-- PropellerAds Banner Ad -->
+              <script type="text/javascript">
+                atOptions = {
+                  'key' : 'your-propellerads-key-here',
+                  'format' : 'iframe',
+                  'height' : 90,
+                  'width' : 728,
+                  'params' : {}
+                };
+                document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.profitabledisplaynetwork.com/your-propellerads-key-here/invoke.js"></scr' + 'ipt>');
+              </script>
+              <noscript>PropellerAds Banner - 728x90</noscript>
+            </div>
           </div>
           <div class="countdown">Redirecting in <span id="timer">3</span> seconds...</div>
           <div class="redirect-info">
