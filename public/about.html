@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - iShortly</title>
+    <meta name="description" content="Learn about iShortly's mission to revolutionize URL shortening with cutting-edge technology and user-focused design.">
+    <meta name="keywords" content="about iShortly, URL shortener team, link management, cyberpunk design, web technology">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph tags for social media sharing -->
+    <meta property="og:title" content="About Us - iShortly">
+    <meta property="og:description" content="Discover the story behind iShortly, the next-generation URL shortening platform.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://YOUR-DOMAIN.com/about.html">
+    <meta property="og:image" content="https://YOUR-DOMAIN.com/thumbnail.png">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔗</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            --cyber-blue: #00d4ff;
+            --cyber-purple: #8b5cf6;
+            --cyber-pink: #ff6b9d;
+            --cyber-orange: #ff8c42;
+            --cyber-yellow: #ffd23f;
+            --cyber-green: #4ade80;
+            --cyber-red: #ff4757;
+            --dark-bg: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --link-color: #00d4ff;
+            --link-hover: #ff6b9d;
+            --shadow-glow: 0 0 30px rgba(0, 212, 255, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .header {
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            font-weight: 900;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .content-section {
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .content-section h2 {
+            color: var(--cyber-blue);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .content-section h3 {
+            color: var(--cyber-green);
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .feature-card h4 {
+            color: var(--cyber-purple);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .trust-points {
+            list-style: none;
+            padding: 0;
+        }
+
+        .trust-points li {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid var(--cyber-green);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, var(--glass-bg), rgba(0, 255, 255, 0.05));
+            border: 2px solid var(--cyber-blue);
+            text-align: center;
+            padding: 3rem;
+            margin-top: 3rem;
+        }
+
+        .btn {
+            background: var(--primary-gradient);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-link {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--link-hover);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header glass">
+            <h1>🚀 Our Journey – More Than Just a URL Shortener</h1>
+            <p>Founded in 2024, iShortly was built to revolutionize how the world manages and shares links through cutting-edge technology and cyberpunk-inspired design.</p>
+        </header>
+
+        <!-- Who We Are Section -->
+        <section class="content-section glass">
+            <h2>🌟 Who We Are</h2>
+            <p>We are a passionate team of developers, designers, and digital innovators who believe that link management should be fast, secure, and visually stunning. Inspired by cyberpunk aesthetics and futuristic technology, we've created iShortly to bridge the gap between functionality and style.</p>
+            
+            <p style="margin-top: 1.5rem;">Our team combines years of experience in web development, user experience design, and data analytics to deliver a platform that doesn't just shorten URLs – it transforms how you interact with the digital world.</p>
+        </section>
+
+        <!-- What We Offer Section -->
+        <section class="content-section glass">
+            <h2>⚡ What We Offer</h2>
+            <p>We specialize in next-generation URL shortening with a focus on speed, security, and user experience. Our platform goes beyond basic link shortening to provide a comprehensive digital link management ecosystem.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h4>🔗 Quantum-Fast Processing</h4>
+                    <p>Lightning-speed URL shortening with enterprise-grade performance and 99.9% uptime guarantee.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📊 Advanced Analytics</h4>
+                    <p>Real-time click tracking, geographic insights, and comprehensive performance metrics for your links.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🎨 Cyberpunk Design</h4>
+                    <p>Immersive user interface that combines functionality with stunning visual aesthetics inspired by the future.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🔒 Enterprise Security</h4>
+                    <p>Military-grade encryption and security protocols to protect your data and ensure safe link sharing.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📱 QR Code Generation</h4>
+                    <p>Dynamic QR code creation for seamless mobile sharing and offline-to-online connectivity.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>⚡ Bulk Processing</h4>
+                    <p>Handle hundreds of URLs simultaneously with our advanced bulk shortening capabilities.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Trust Us Section -->
+        <section class="content-section glass">
+            <h2>🛡️ Why Trust Us?</h2>
+            <ul class="trust-points">
+                <li><strong>🏆 Cutting-Edge Technology:</strong> Built with Node.js, MongoDB, and modern web technologies for optimal performance and scalability.</li>
+                <li><strong>🌐 Global Reliability:</strong> Trusted by thousands of users worldwide with 99.9% uptime and lightning-fast global content delivery.</li>
+                <li><strong>🔐 Privacy-First Approach:</strong> We prioritize your privacy with minimal data collection, transparent policies, and secure data handling practices.</li>
+            </ul>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta-section glass">
+            <h3 style="color: var(--cyber-green); margin-bottom: 1rem;">🌟 Ready to Experience the Future?</h3>
+            <p style="margin-bottom: 2rem; color: var(--text-secondary);">Explore our revolutionary URL shortening platform or reach out to learn more about our enterprise solutions!</p>
+            <a href="index.html" class="btn">🚀 Start Shortening</a>
+            <a href="contact.html" class="btn">📧 Contact Us</a>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="index.html" class="nav-link">🏠 Home</a>
+                <a href="about.html" class="nav-link">🌟 About Us</a>
+                <a href="contact.html" class="nav-link">📧 Contact</a>
+                <a href="privacy.html" class="nav-link">🔒 Privacy Policy</a>
+                <a href="blog.html" class="nav-link">📝 Blog</a>
+            </div>
+            <p style="color: var(--text-secondary); margin-top: 1rem;">
+                © 2024 iShortly. Revolutionizing link management with cyberpunk style.
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - iShortly</title>
+    <meta name="description" content="iShortly Privacy Policy - Learn how we protect your data and respect your privacy while providing secure URL shortening services.">
+    <meta name="keywords" content="privacy policy, data protection, iShortly privacy, GDPR compliance, data security">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph tags for social media sharing -->
+    <meta property="og:title" content="Privacy Policy - iShortly">
+    <meta property="og:description" content="Transparent privacy practices at iShortly. Learn how we protect and handle your data.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://YOUR-DOMAIN.com/privacy.html">
+    <meta property="og:image" content="https://YOUR-DOMAIN.com/thumbnail.png">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔗</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            --cyber-blue: #00d4ff;
+            --cyber-purple: #8b5cf6;
+            --cyber-pink: #ff6b9d;
+            --cyber-orange: #ff8c42;
+            --cyber-yellow: #ffd23f;
+            --cyber-green: #4ade80;
+            --cyber-red: #ff4757;
+            --dark-bg: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --link-color: #00d4ff;
+            --link-hover: #ff6b9d;
+            --shadow-glow: 0 0 30px rgba(0, 212, 255, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .header {
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            font-weight: 900;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .content-section {
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .content-section h2 {
+            color: var(--cyber-blue);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .content-section h3 {
+            color: var(--cyber-purple);
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem 0;
+        }
+
+        .content-section h4 {
+            color: var(--cyber-green);
+            font-size: 1.2rem;
+            margin: 1.5rem 0 0.5rem 0;
+        }
+
+        .content-section p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .content-section ul {
+            margin: 1rem 0 1rem 2rem;
+            color: var(--text-secondary);
+        }
+
+        .content-section li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(76, 222, 128, 0.1), rgba(0, 212, 255, 0.1));
+            border: 2px solid var(--cyber-green);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, rgba(255, 140, 66, 0.1), rgba(255, 71, 87, 0.1));
+            border: 2px solid var(--cyber-orange);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(255, 107, 157, 0.1));
+            border: 2px solid var(--cyber-purple);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .data-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .data-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+        }
+
+        .data-card h4 {
+            color: var(--cyber-blue);
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            background: var(--primary-gradient);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-link {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--link-hover);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .last-updated {
+            background: rgba(255, 210, 63, 0.1);
+            border: 1px solid var(--cyber-yellow);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 2rem 0;
+            text-align: center;
+            color: var(--cyber-yellow);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .data-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header glass">
+            <h1>🔒 Privacy Policy – Protecting Your Data</h1>
+            <p>At iShortly, we believe in complete transparency about how we handle your information. This policy outlines our commitment to protecting your privacy while delivering exceptional URL shortening services.</p>
+        </header>
+
+        <!-- Last Updated -->
+        <div class="last-updated">
+            <strong>📅 Last Updated:</strong> January 2024 | <strong>🔄 Version:</strong> 2.1
+        </div>
+
+        <!-- Introduction -->
+        <section class="content-section glass">
+            <h2>🌟 Our Privacy Commitment</h2>
+            <div class="highlight-box">
+                <p><strong>Your privacy is not negotiable.</strong> We've built iShortly with privacy-first principles, ensuring that your data remains secure, your usage stays private, and your trust is never compromised. This policy explains exactly how we collect, use, and protect your information.</p>
+            </div>
+            <p>By using iShortly's services, you agree to the practices described in this privacy policy. We encourage you to read this document carefully and contact us if you have any questions.</p>
+        </section>
+
+        <!-- Data Collection -->
+        <section class="content-section glass">
+            <h2>📊 Data We Collect</h2>
+            <p>We believe in minimal data collection. Here's exactly what information we gather and why:</p>
+            
+            <div class="data-grid">
+                <div class="data-card">
+                    <h4>🔗 URL Information</h4>
+                    <ul>
+                        <li>Original URLs you shorten</li>
+                        <li>Custom aliases (if created)</li>
+                        <li>Creation timestamps</li>
+                        <li>Expiration settings</li>
+                    </ul>
+                    <p><strong>Purpose:</strong> To provide URL shortening and management services.</p>
+                </div>
+                
+                <div class="data-card">
+                    <h4>📈 Analytics Data</h4>
+                    <ul>
+                        <li>Click counts and timestamps</li>
+                        <li>Referrer information</li>
+                        <li>Geographic location (country/city level)</li>
+                        <li>Device and browser types</li>
+                    </ul>
+                    <p><strong>Purpose:</strong> To provide valuable insights about your link performance.</p>
+                </div>
+                
+                <div class="data-card">
+                    <h4>🍪 Technical Data</h4>
+                    <ul>
+                        <li>IP addresses (anonymized after 30 days)</li>
+                        <li>Session cookies</li>
+                        <li>Local storage preferences</li>
+                        <li>Error logs and performance metrics</li>
+                    </ul>
+                    <p><strong>Purpose:</strong> To ensure service reliability and improve user experience.</p>
+                </div>
+                
+                <div class="data-card">
+                    <h4>📧 Contact Information</h4>
+                    <ul>
+                        <li>Email addresses (when provided)</li>
+                        <li>Support inquiries</li>
+                        <li>Feedback and suggestions</li>
+                    </ul>
+                    <p><strong>Purpose:</strong> To respond to your inquiries and improve our services.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Usage -->
+        <section class="content-section glass">
+            <h2>🎯 How We Use Your Data</h2>
+            <p>We use your information exclusively for the following purposes:</p>
+            
+            <h3>🔧 Service Operations</h3>
+            <ul>
+                <li><strong>URL Management:</strong> Creating, storing, and redirecting your shortened URLs</li>
+                <li><strong>Analytics:</strong> Providing click statistics and performance insights</li>
+                <li><strong>QR Codes:</strong> Generating QR codes for your shortened links</li>
+                <li><strong>Custom Features:</strong> Supporting password protection and expiration dates</li>
+            </ul>
+            
+            <h3>📊 Service Improvement</h3>
+            <ul>
+                <li><strong>Performance Optimization:</strong> Analyzing usage patterns to improve speed and reliability</li>
+                <li><strong>Feature Development:</strong> Understanding user needs to build better features</li>
+                <li><strong>Security:</strong> Detecting and preventing abuse, spam, and malicious activities</li>
+            </ul>
+            
+            <h3>💬 Communication</h3>
+            <ul>
+                <li><strong>Support:</strong> Responding to your questions and technical issues</li>
+                <li><strong>Updates:</strong> Notifying you about important service changes (only when necessary)</li>
+                <li><strong>Security Alerts:</strong> Informing you about potential security issues</li>
+            </ul>
+        </section>
+
+        <!-- Third Parties -->
+        <section class="content-section glass">
+            <h2>🤝 Third-Party Services</h2>
+            <p>We work with select third-party services to enhance your experience. Here's complete transparency about our partnerships:</p>
+            
+            <div class="info-box">
+                <h4>📊 Analytics Services</h4>
+                <p><strong>Google Analytics:</strong> We use Google Analytics to understand how users interact with our service. This helps us improve performance and user experience. Google Analytics collects anonymized usage data and follows their own privacy policy.</p>
+                <p><strong>Your Control:</strong> You can opt out of Google Analytics tracking using browser extensions or by contacting us.</p>
+            </div>
+            
+            <div class="info-box">
+                <h4>🌐 Content Delivery</h4>
+                <p><strong>CDN Services:</strong> We use content delivery networks to ensure fast loading times globally. These services may process technical data like IP addresses for routing purposes.</p>
+            </div>
+            
+            <div class="info-box">
+                <h4>🔒 Security Services</h4>
+                <p><strong>DDoS Protection:</strong> We employ security services to protect against attacks and ensure service availability. These services may analyze traffic patterns for security purposes.</p>
+            </div>
+            
+            <div class="warning-box">
+                <h4>🚫 What We DON'T Do</h4>
+                <ul>
+                    <li><strong>No Data Sales:</strong> We never sell your personal information to third parties</li>
+                    <li><strong>No Advertising Networks:</strong> We don't share your data with advertising companies</li>
+                    <li><strong>No Unnecessary Sharing:</strong> We only share data when essential for service operation</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- User Rights -->
+        <section class="content-section glass">
+            <h2>⚖️ Your Rights & Control</h2>
+            <p>You have complete control over your data. Here are your rights and how to exercise them:</p>
+            
+            <h3>🔍 Access & Transparency</h3>
+            <ul>
+                <li><strong>Data Access:</strong> Request a copy of all data we have about you</li>
+                <li><strong>Usage Reports:</strong> Get detailed reports on how your data is being used</li>
+                <li><strong>Third-Party Sharing:</strong> See exactly what data (if any) is shared with third parties</li>
+            </ul>
+            
+            <h3>✏️ Modification & Deletion</h3>
+            <ul>
+                <li><strong>Data Correction:</strong> Update or correct any inaccurate information</li>
+                <li><strong>Selective Deletion:</strong> Delete specific URLs or data points</li>
+                <li><strong>Complete Deletion:</strong> Request complete removal of all your data</li>
+                <li><strong>Account Closure:</strong> Close your account and delete all associated data</li>
+            </ul>
+            
+            <h3>🛡️ Privacy Controls</h3>
+            <ul>
+                <li><strong>Analytics Opt-Out:</strong> Disable analytics tracking for your URLs</li>
+                <li><strong>Data Retention:</strong> Set custom data retention periods</li>
+                <li><strong>Communication Preferences:</strong> Control what communications you receive</li>
+            </ul>
+            
+            <div class="highlight-box">
+                <h4>📧 Exercise Your Rights</h4>
+                <p>To exercise any of these rights, simply email us at <strong>privacy@ishortly.com</strong> with your request. We'll respond within <strong>72 hours</strong> and complete most requests within <strong>7 business days</strong>.</p>
+            </div>
+        </section>
+
+        <!-- Data Security -->
+        <section class="content-section glass">
+            <h2>🛡️ Data Security & Protection</h2>
+            <p>We employ industry-leading security measures to protect your information:</p>
+            
+            <h3>🔐 Technical Safeguards</h3>
+            <ul>
+                <li><strong>Encryption:</strong> All data is encrypted in transit (TLS 1.3) and at rest (AES-256)</li>
+                <li><strong>Access Controls:</strong> Strict role-based access with multi-factor authentication</li>
+                <li><strong>Regular Audits:</strong> Quarterly security assessments and penetration testing</li>
+                <li><strong>Secure Infrastructure:</strong> Hosted on SOC 2 compliant cloud platforms</li>
+            </ul>
+            
+            <h3>📋 Operational Security</h3>
+            <ul>
+                <li><strong>Staff Training:</strong> Regular privacy and security training for all team members</li>
+                <li><strong>Incident Response:</strong> 24/7 monitoring with rapid incident response procedures</li>
+                <li><strong>Data Minimization:</strong> We only collect and retain data that's absolutely necessary</li>
+                <li><strong>Regular Backups:</strong> Secure, encrypted backups with tested recovery procedures</li>
+            </ul>
+            
+            <div class="warning-box">
+                <h4>🚨 Security Incident Protocol</h4>
+                <p>In the unlikely event of a security incident affecting your data, we will:</p>
+                <ul>
+                    <li>Notify affected users within <strong>24 hours</strong></li>
+                    <li>Provide detailed information about what happened</li>
+                    <li>Explain what data (if any) was affected</li>
+                    <li>Outline steps we're taking to prevent future incidents</li>
+                    <li>Offer assistance and support as needed</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Data Retention -->
+        <section class="content-section glass">
+            <h2>⏰ Data Retention & Deletion</h2>
+            <p>We believe in responsible data retention. Here's how long we keep different types of information:</p>
+            
+            <h3>🔗 URL Data</h3>
+            <ul>
+                <li><strong>Active URLs:</strong> Retained as long as the URL is active and being used</li>
+                <li><strong>Expired URLs:</strong> Deleted 30 days after expiration</li>
+                <li><strong>Inactive URLs:</strong> Deleted after 2 years of no activity (with 30-day notice)</li>
+            </ul>
+            
+            <h3>📊 Analytics Data</h3>
+            <ul>
+                <li><strong>Detailed Analytics:</strong> Retained for 13 months</li>
+                <li><strong>Aggregated Statistics:</strong> May be retained longer for service improvement</li>
+                <li><strong>IP Addresses:</strong> Anonymized after 30 days</li>
+            </ul>
+            
+            <h3>💬 Communication Data</h3>
+            <ul>
+                <li><strong>Support Tickets:</strong> Retained for 3 years for quality assurance</li>
+                <li><strong>Email Communications:</strong> Deleted after 1 year unless ongoing support needed</li>
+            </ul>
+        </section>
+
+        <!-- Policy Updates -->
+        <section class="content-section glass">
+            <h2>🔄 Policy Updates & Changes</h2>
+            <p>We may update this privacy policy periodically to reflect changes in our practices or legal requirements. Here's how we handle updates:</p>
+            
+            <div class="info-box">
+                <h4>📢 Notification Process</h4>
+                <ul>
+                    <li><strong>Minor Changes:</strong> Updated policy posted with change date</li>
+                    <li><strong>Significant Changes:</strong> Email notification to users (if email provided)</li>
+                    <li><strong>Major Changes:</strong> 30-day advance notice with explanation of changes</li>
+                </ul>
+                <p><strong>Your Options:</strong> If you disagree with policy changes, you can delete your data and stop using our service before the changes take effect.</p>
+            </div>
+        </section>
+
+        <!-- Contact Information -->
+        <section class="content-section glass">
+            <h2>📞 Privacy Contact & Support</h2>
+            <p>We're committed to addressing your privacy concerns promptly and thoroughly.</p>
+            
+            <div class="highlight-box">
+                <h4>🛡️ Privacy Officer Contact</h4>
+                <p><strong>Email:</strong> <a href="mailto:privacy@ishortly.com" style="color: var(--cyber-green);">privacy@ishortly.com</a></p>
+                <p><strong>Response Time:</strong> Within 72 hours for privacy-related inquiries</p>
+                <p><strong>Escalation:</strong> If unsatisfied with our response, contact our Data Protection Officer at <a href="mailto:dpo@ishortly.com" style="color: var(--cyber-green);">dpo@ishortly.com</a></p>
+            </div>
+            
+            <h3>📋 What to Include in Privacy Requests</h3>
+            <ul>
+                <li>Clear description of your request or concern</li>
+                <li>Specific data or URLs you're asking about (if applicable)</li>
+                <li>Preferred method of response</li>
+                <li>Any relevant dates or timeframes</li>
+            </ul>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="content-section glass" style="background: linear-gradient(135deg, var(--glass-bg), rgba(0, 255, 255, 0.05)); border: 2px solid var(--cyber-blue);">
+            <h3 style="color: var(--cyber-green); margin-bottom: 1rem; text-align: center;">🚀 Questions About Privacy?</h3>
+            <p style="margin-bottom: 2rem; color: var(--text-secondary); text-align: center;">We're here to help! Reach out with any privacy questions or concerns.</p>
+            <div style="text-align: center;">
+                <a href="contact.html" class="btn">📧 Contact Privacy Team</a>
+                <a href="index.html" class="btn">🔗 Start Using iShortly</a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="index.html" class="nav-link">🏠 Home</a>
+                <a href="about.html" class="nav-link">🌟 About Us</a>
+                <a href="contact.html" class="nav-link">📧 Contact</a>
+                <a href="privacy.html" class="nav-link">🔒 Privacy Policy</a>
+                <a href="blog.html" class="nav-link">📝 Blog</a>
+            </div>
+            <p style="color: var(--text-secondary); margin-top: 1rem;">
+                © 2024 iShortly. Your privacy is our priority.
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

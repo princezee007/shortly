@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - iShortly</title>
+    <meta name="description" content="Get in touch with the iShortly team. We're here to help with questions, feedback, and collaboration opportunities.">
+    <meta name="keywords" content="contact iShortly, support, feedback, collaboration, email contact">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph tags for social media sharing -->
+    <meta property="og:title" content="Contact Us - iShortly">
+    <meta property="og:description" content="Connect with the iShortly team for support, feedback, and partnership opportunities.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://YOUR-DOMAIN.com/contact.html">
+    <meta property="og:image" content="https://YOUR-DOMAIN.com/thumbnail.png">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔗</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            --cyber-blue: #00d4ff;
+            --cyber-purple: #8b5cf6;
+            --cyber-pink: #ff6b9d;
+            --cyber-orange: #ff8c42;
+            --cyber-yellow: #ffd23f;
+            --cyber-green: #4ade80;
+            --cyber-red: #ff4757;
+            --dark-bg: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --link-color: #00d4ff;
+            --link-hover: #ff6b9d;
+            --shadow-glow: 0 0 30px rgba(0, 212, 255, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .header {
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            font-weight: 900;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .content-section {
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .content-section h2 {
+            color: var(--cyber-blue);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .email-highlight {
+            background: linear-gradient(135deg, var(--glass-bg), rgba(0, 255, 255, 0.1));
+            border: 2px solid var(--cyber-green);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .email-link {
+            color: var(--cyber-green);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            padding: 1rem 2rem;
+            border: 2px solid var(--cyber-green);
+            border-radius: 50px;
+            background: rgba(76, 222, 128, 0.1);
+        }
+
+        .email-link:hover {
+            color: var(--text-primary);
+            background: var(--cyber-green);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(76, 222, 128, 0.4);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .contact-card h3 {
+            color: var(--cyber-purple);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .response-time {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(255, 107, 157, 0.1));
+            border: 1px solid var(--cyber-purple);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .collaboration-note {
+            background: linear-gradient(135deg, rgba(255, 140, 66, 0.1), rgba(255, 210, 63, 0.1));
+            border: 1px solid var(--cyber-orange);
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .btn {
+            background: var(--primary-gradient);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-link {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--link-hover);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .email-link {
+                font-size: 1.2rem;
+                padding: 0.8rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header glass">
+            <h1>📧 Let's Connect – We're Here to Help!</h1>
+            <p>Have questions, feedback, or collaboration ideas? We'd love to hear from you. Reach out and let's start a conversation about the future of link management.</p>
+        </header>
+
+        <!-- Main Contact Section -->
+        <section class="content-section glass">
+            <h2>🚀 Get in Touch</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 2rem;">Have questions or feedback? Email us directly and we'll get back to you as soon as possible. We're passionate about helping our users succeed with their link management needs.</p>
+            
+            <div class="email-highlight">
+                <p style="margin-bottom: 1rem; color: var(--text-secondary);">📬 Primary Contact</p>
+                <a href="mailto:info@ishortly.com" class="email-link">✉️ info@ishortly.com</a>
+            </div>
+
+            <div class="response-time">
+                <h3 style="color: var(--cyber-purple); margin-bottom: 1rem;">⏱️ Response Time</h3>
+                <p>We typically respond within <strong>24 hours</strong> during business days. For urgent technical issues, we aim to respond within <strong>4-6 hours</strong>.</p>
+            </div>
+        </section>
+
+        <!-- Contact Types -->
+        <section class="content-section glass">
+            <h2>💬 What Can We Help With?</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <span class="icon">🛠️</span>
+                    <h3>Technical Support</h3>
+                    <p>Having trouble with URL shortening, analytics, or QR codes? We're here to help troubleshoot any technical issues.</p>
+                </div>
+                <div class="contact-card">
+                    <span class="icon">💡</span>
+                    <h3>Feature Requests</h3>
+                    <p>Got ideas for new features or improvements? We love hearing from our users about how we can make iShortly even better.</p>
+                </div>
+                <div class="contact-card">
+                    <span class="icon">🤝</span>
+                    <h3>Business Inquiries</h3>
+                    <p>Interested in enterprise solutions, API access, or custom integrations? Let's discuss how we can support your business needs.</p>
+                </div>
+                <div class="contact-card">
+                    <span class="icon">📊</span>
+                    <h3>Analytics Questions</h3>
+                    <p>Need help understanding your link analytics or want to learn about advanced tracking features? We're happy to guide you.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Collaboration Section -->
+        <section class="content-section glass">
+            <div class="collaboration-note">
+                <h3 style="color: var(--cyber-orange); margin-bottom: 1rem;">🌟 Partnership & Collaboration</h3>
+                <p>We're always open to exciting partnerships and collaboration opportunities! Whether you're a developer interested in integrating with our API, a business looking for custom solutions, or a content creator wanting to explore sponsorship opportunities, we'd love to explore how we can work together.</p>
+                <p style="margin-top: 1rem;"><strong>Partnership inquiries:</strong> <a href="mailto:partnerships@ishortly.com" style="color: var(--cyber-orange);">partnerships@ishortly.com</a></p>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="content-section glass" style="background: linear-gradient(135deg, var(--glass-bg), rgba(0, 255, 255, 0.05)); border: 2px solid var(--cyber-blue);">
+            <h3 style="color: var(--cyber-green); margin-bottom: 1rem;">🚀 Ready to Start Shortening?</h3>
+            <p style="margin-bottom: 2rem; color: var(--text-secondary);">While you're here, why not try out our revolutionary URL shortening platform?</p>
+            <a href="index.html" class="btn">🔗 Start Shortening URLs</a>
+            <a href="about.html" class="btn">🌟 Learn More About Us</a>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="index.html" class="nav-link">🏠 Home</a>
+                <a href="about.html" class="nav-link">🌟 About Us</a>
+                <a href="contact.html" class="nav-link">📧 Contact</a>
+                <a href="privacy.html" class="nav-link">🔒 Privacy Policy</a>
+                <a href="blog.html" class="nav-link">📝 Blog</a>
+            </div>
+            <p style="color: var(--text-secondary); margin-top: 1rem;">
+                © 2024 iShortly. Revolutionizing link management with cyberpunk style.
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
