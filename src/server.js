@@ -22,7 +22,7 @@ app.use(helmet({
       frameAncestors: ["'self'"],
       imgSrc: ["'self'", "data:"],
       objectSrc: ["'none'"],
-      scriptSrc: ["'self'"],
+      scriptSrc: ["'self'", "https://www.googletagmanager.com", "'unsafe-inline'"],
       scriptSrcAttr: ["'none'"],
       styleSrc: ["'self'", "https:", "'unsafe-inline'"],
       upgradeInsecureRequests: [],
