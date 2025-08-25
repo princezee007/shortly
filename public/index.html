@@ -33,7 +33,24 @@
     <meta name="twitter:description" content="iShortly is a free and powerful URL shortener like Bitly. Create custom short links, track clicks, and share smarter with our fast and secure link shortener.">
     <meta name="twitter:image" content="https://ishortly.com/twitter-card.png">
     <meta name="twitter:site" content="@ishortly">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔗</text></svg>">
+    
+    <!-- Organization Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "iShortly",
+        "url": "https://ishortly.com",
+        "logo": "https://ishortly.com/logo.svg",
+        "description": "iShortly is the best free URL shortener with analytics, custom domains, and QR code generator. Create branded short links for marketing campaigns, social media, and business use.",
+        "sameAs": [
+            "https://twitter.com/ishortly"
+        ]
+    }
+    </script>
+    
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
@@ -1357,7 +1374,9 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <a href="/" class="logo">iSHORTLY</a>
+                <a href="/" class="logo">
+                    <img src="logo.svg" alt="iShortly" style="height: 40px; width: auto;">
+                </a>
                 <nav class="nav">
                     <a href="#shortener">Shorten</a>
                     <a href="#bulk">Bulk</a>

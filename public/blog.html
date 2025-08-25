@@ -25,6 +25,21 @@
     <meta property="og:url" content="https://YOUR-DOMAIN.com/blog.html">
     <meta property="og:image" content="https://YOUR-DOMAIN.com/thumbnail.png">
     <link rel="canonical" href="https://ishortly.com/blog.html">
+    
+    <!-- Organization Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "iShortly",
+        "url": "https://ishortly.com",
+        "logo": "https://ishortly.com/logo.svg",
+        "description": "iShortly is the best free URL shortener with analytics, custom domains, and QR code generator. Create branded short links for marketing campaigns, social media, and business use.",
+        "sameAs": [
+            "https://twitter.com/ishortly"
+        ]
+    }
+    </script>
     <style>
         * {
             margin: 0;
@@ -214,7 +229,9 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <a href="/" class="logo">🔗 Shortly</a>
+                <a href="/" class="logo">
+                    <img src="logo.svg" alt="iShortly" style="height: 40px; width: auto;">
+                </a>
                 <nav class="nav">
                     <a href="/">Home</a>
                     <a href="/#shortener">Shorten</a>

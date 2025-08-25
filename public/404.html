@@ -19,6 +19,21 @@
     <meta name="robots" content="noindex, follow">
     <link rel="canonical" href="https://ishortly.com/404.html">
     
+    <!-- Organization Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "iShortly",
+        "url": "https://ishortly.com",
+        "logo": "https://ishortly.com/logo.svg",
+        "description": "iShortly is the best free URL shortener with analytics, custom domains, and QR code generator. Create branded short links for marketing campaigns, social media, and business use.",
+        "sameAs": [
+            "https://twitter.com/ishortly"
+        ]
+    }
+    </script>
+    
     <!-- Open Graph tags for social media sharing -->
     <meta property="og:title" content="404 - Link Not Found | iShortly">
     <meta property="og:description" content="Page not found. Return to iShortly, the best free URL shortener with analytics, custom domains, and branded short links for your marketing campaigns and business needs.">
@@ -127,7 +142,9 @@
 </head>
 <body>
     <div class="container">
-        <div class="logo">🔗</div>
+        <div class="logo">
+            <img src="logo.svg" alt="iShortly" style="height: 60px; width: auto;">
+        </div>
         <div class="error-code">404</div>
         <h1 class="error-message">Link Not Found</h1>
         <div class="error-description">

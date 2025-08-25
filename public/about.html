@@ -25,7 +25,24 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://YOUR-DOMAIN.com/about.html">
     <meta property="og:image" content="https://YOUR-DOMAIN.com/thumbnail.png">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔗</text></svg>">
+    
+    <!-- Organization Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "iShortly",
+        "url": "https://ishortly.com",
+        "logo": "https://ishortly.com/logo.svg",
+        "description": "iShortly is the best free URL shortener with analytics, custom domains, and QR code generator. Create branded short links for marketing campaigns, social media, and business use.",
+        "sameAs": [
+            "https://twitter.com/ishortly"
+        ]
+    }
+    </script>
+    
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
@@ -235,7 +252,9 @@
     <!-- Header -->
     <header style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1rem 0; background: rgba(10, 10, 15, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-border);">
         <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center;">
-            <a href="index.html" style="font-family: 'Orbitron', monospace; font-size: 2rem; font-weight: 900; background: linear-gradient(45deg, var(--cyber-blue), var(--cyber-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none;">iSHORTLY</a>
+            <a href="index.html" style="text-decoration: none;">
+                <img src="logo.svg" alt="iShortly" style="height: 40px; width: auto;">
+            </a>
             <nav style="display: flex; gap: 2rem;">
                 <a href="index.html" style="color: var(--link-color); text-decoration: none; font-weight: 500; padding: 0.8rem 1.5rem; border-radius: 15px; transition: all 0.3s ease;">🏠 Home</a>
                 <a href="about.html" style="color: var(--link-hover); text-decoration: none; font-weight: 500; padding: 0.8rem 1.5rem; border-radius: 15px; background: rgba(255, 107, 157, 0.1); border: 1px solid var(--link-hover);">🌟 About</a>
