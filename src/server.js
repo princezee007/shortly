@@ -38,6 +38,25 @@ app.use(express.static('public'));
 // Trust proxy for accurate IPs behind reverse proxies/CDNs
 app.set('trust proxy', 1);
 
+// Canonical domain redirect middleware - Force HTTPS and remove WWW
+app.use((req, res, next) => {
+  const host = req.get('host');
+  const protocol = req.protocol;
+  
+  // Check if we need to redirect
+  const needsHttpsRedirect = protocol !== 'https';
+  const needsWwwRemoval = host && host.startsWith('www.');
+  
+  if (needsHttpsRedirect || needsWwwRemoval) {
+    const canonicalHost = needsWwwRemoval ? host.replace(/^www\./, '') : host;
+    const canonicalUrl = `https://${canonicalHost}${req.originalUrl}`;
+    
+    return res.redirect(301, canonicalUrl);
+  }
+  
+  next();
+});
+
 // Dynamic base URL detection middleware
 app.use((req, res, next) => {
   req.BASE_URL = `${req.protocol}://${req.get('host')}`;
