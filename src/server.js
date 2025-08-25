@@ -12,7 +12,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(helmet({
+// Configure helmet based on environment
+const helmetConfig = {
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
@@ -25,12 +26,18 @@ app.use(helmet({
       scriptSrc: ["'self'", "https://www.googletagmanager.com", "'unsafe-inline'"],
       scriptSrcAttr: ["'none'"],
       styleSrc: ["'self'", "https:", "'unsafe-inline'"],
-      upgradeInsecureRequests: [],
       // Allow navigation to any URL for redirects
       navigateTo: null
     },
   },
-}));
+};
+
+// Only add upgradeInsecureRequests in production
+if (process.env.NODE_ENV === 'production') {
+  helmetConfig.contentSecurityPolicy.directives.upgradeInsecureRequests = [];
+}
+
+app.use(helmet(helmetConfig));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
