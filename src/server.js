@@ -45,23 +45,28 @@ app.use(express.static('public'));
 // Trust proxy for accurate IPs behind reverse proxies/CDNs
 app.set('trust proxy', 1);
 
-// Canonical domain redirect middleware - Force HTTPS and remove WWW (only in production)
+// Canonical domain redirect middleware - Force HTTPS and remove WWW (only in production with SSL)
 app.use((req, res, next) => {
   const host = req.get('host');
   const protocol = req.protocol;
   
-  // Skip HTTPS redirect for localhost development
+  // Skip redirects for localhost development
   if (host && host.includes('localhost')) {
     return next();
   }
   
+  // Skip HTTPS redirect if SSL is not properly configured (prevents redirect loops)
+  // Only enable HTTPS redirect if FORCE_HTTPS environment variable is set to 'true'
+  const forceHttps = process.env.FORCE_HTTPS === 'true';
+  
   // Check if we need to redirect
-  const needsHttpsRedirect = protocol !== 'https';
+  const needsHttpsRedirect = forceHttps && protocol !== 'https';
   const needsWwwRemoval = host && host.startsWith('www.');
   
   if (needsHttpsRedirect || needsWwwRemoval) {
     const canonicalHost = needsWwwRemoval ? host.replace(/^www\./, '') : host;
-    const canonicalUrl = `https://${canonicalHost}${req.originalUrl}`;
+    const targetProtocol = needsHttpsRedirect ? 'https' : protocol;
+    const canonicalUrl = `${targetProtocol}://${canonicalHost}${req.originalUrl}`;
     
     return res.redirect(301, canonicalUrl);
   }
