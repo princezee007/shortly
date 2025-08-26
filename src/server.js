@@ -986,6 +986,22 @@ app.post('/api/export-urls', async (req, res) => {
   }
 });
 
+// Health check endpoint for deployment monitoring
+app.get('/health', (req, res) => {
+  const healthCheck = {
+    status: 'OK',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    environment: process.env.NODE_ENV || 'development',
+    database: dbAvailable ? 'connected' : 'disconnected',
+    version: require('../package.json').version || '1.0.0',
+    memory: process.memoryUsage(),
+    baseUrl: process.env.BASE_URL || 'not configured'
+  };
+  
+  res.status(200).json(healthCheck);
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`Shortly server running on port ${PORT}`);
