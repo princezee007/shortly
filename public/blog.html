@@ -12,7 +12,7 @@
     </script>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
     <title>URL Shortening Best Practices & Tips | iShortly Blog</title>
     <meta name="description" content="Discover URL shortening best practices, marketing tips, and how to create SEO friendly short URLs with iShortly. Learn about branded short links, analytics, and link management strategies for businesses.">
     <meta name="keywords" content="URL shortener, URL shortening tool, best URL shortener, free URL shortener, branded URL shortener, link shortener, how to create SEO friendly short URLs, URL shortener for marketing campaigns, branded short links for social media, URL shortener with analytics, URL shortener for businesses, best URL shortener for marketing, URL shortener with click tracking, link management, digital marketing, SEO, social media campaigns, URL shortener for email marketing campaigns, short link generator, tiny URL generator">
@@ -209,17 +209,237 @@
 
 
 
+        /* Mobile Navigation */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background: rgba(102, 126, 234, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 999;
+            padding: 1rem 0;
+        }
+        
+        .mobile-nav.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .mobile-nav a {
+            display: block;
+            padding: 1rem 2rem;
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .hero {
+                padding: 3rem 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .article {
+                padding: 2.5rem 2rem;
+            }
+        }
+        
         @media (max-width: 768px) {
+            .nav {
+                display: none;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .container {
+                padding: 0 10px;
+            }
+            
+            .hero {
+                padding: 2.5rem 0;
+            }
+            
             .hero h1 {
                 font-size: 2rem;
+                line-height: 1.2;
+                margin-bottom: 1rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+                padding: 0 1rem;
             }
             
             .article {
                 padding: 2rem 1.5rem;
             }
             
-            .nav {
-                display: none;
+            .article h2 {
+                font-size: 1.6rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .article h3 {
+                font-size: 1.3rem;
+                margin: 1.5rem 0 1rem 0;
+            }
+            
+            .article p {
+                font-size: 1rem;
+                line-height: 1.7;
+            }
+            
+            .article li {
+                font-size: 1rem;
+                margin-bottom: 0.7rem;
+            }
+            
+            .highlight {
+                padding: 1.2rem;
+                margin: 1.5rem 0;
+            }
+            
+            .cta {
+                padding: 2rem 1.5rem;
+                margin: 1.5rem 0;
+            }
+            
+            .cta h2 {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+            
+            .btn {
+                display: block;
+                width: 100%;
+                margin: 0.5rem 0;
+                padding: 1rem;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .container {
+                padding: 0 5px;
+            }
+            
+            .hero {
+                padding: 2rem 0;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 0.9rem;
+                padding: 0 1.5rem;
+            }
+            
+            .article {
+                padding: 1.5rem 1rem;
+            }
+            
+            .article h2 {
+                font-size: 1.4rem;
+            }
+            
+            .article h3 {
+                font-size: 1.2rem;
+            }
+            
+            .article p {
+                font-size: 0.95rem;
+            }
+            
+            .article li {
+                font-size: 0.95rem;
+            }
+            
+            .highlight {
+                padding: 1rem;
+            }
+            
+            .cta {
+                padding: 1.5rem 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+            
+            .hero p {
+                font-size: 0.85rem;
+            }
+            
+            .article h2 {
+                font-size: 1.2rem;
+            }
+            
+            .article h3 {
+                font-size: 1.1rem;
+            }
+            
+            .article p,
+            .article li {
+                font-size: 0.9rem;
+            }
+            
+            .article {
+                padding: 1.2rem 0.8rem;
+            }
+            
+            .highlight {
+                padding: 0.8rem;
+            }
+            
+            .cta {
+                padding: 1.2rem 0.8rem;
+            }
+            
+            .cta h2 {
+                font-size: 1.2rem;
             }
         }
     </style>
@@ -232,15 +452,31 @@
                 <a href="/" class="logo">
                     <img src="logo.svg" alt="iShortly" style="height: 40px; width: auto;">
                 </a>
-                <nav class="nav">
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                    ☰
+                </button>
+                <nav class="nav desktop-nav">
                     <a href="/">Home</a>
                     <a href="/#shortener">Shorten</a>
                     <a href="/#analytics">Analytics</a>
                     <a href="/blog.html">Blog</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="privacy.html">Privacy</a>
                 </nav>
             </div>
         </div>
     </header>
+    
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="/">🏠 Home</a>
+        <a href="/#shortener">🔗 Shorten</a>
+        <a href="/#analytics">📊 Analytics</a>
+        <a href="/blog.html">📝 Blog</a>
+        <a href="about.html">🌟 About</a>
+        <a href="contact.html">📧 Contact</a>
+        <a href="privacy.html">🔒 Privacy</a>
+    </nav>
 
     <section class="hero">
         <div class="container">
@@ -358,5 +594,31 @@
             <p><small>Privacy Policy | Terms of Service | Contact Us | Blog</small></p>
         </div>
     </footer>
+    <script>
+        function toggleMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.classList.toggle('active');
+        }
+        
+        function closeMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.classList.remove('active');
+        }
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileNav = document.getElementById('mobileNav');
+            const toggleButton = document.querySelector('.mobile-menu-toggle');
+            
+            if (!mobileNav.contains(event.target) && !toggleButton.contains(event.target)) {
+                closeMobileMenu();
+            }
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-nav a').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+    </script>
 </body>
 </html>

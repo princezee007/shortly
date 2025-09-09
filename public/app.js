@@ -1,75 +1,236 @@
 // Shortly - Frontend JavaScript
+// Browser Compatibility Enhancements
+
+// Polyfill for fetch API (IE11 and older browsers)
+if (!window.fetch) {
+    window.fetch = function(url, options) {
+        return new Promise(function(resolve, reject) {
+            var xhr = new XMLHttpRequest();
+            xhr.open(options.method || 'GET', url);
+            
+            if (options.headers) {
+                Object.keys(options.headers).forEach(function(key) {
+                    xhr.setRequestHeader(key, options.headers[key]);
+                });
+            }
+            
+            xhr.onload = function() {
+                resolve({
+                    ok: xhr.status >= 200 && xhr.status < 300,
+                    status: xhr.status,
+                    json: function() {
+                        return Promise.resolve(JSON.parse(xhr.responseText));
+                    },
+                    text: function() {
+                        return Promise.resolve(xhr.responseText);
+                    }
+                });
+            };
+            
+            xhr.onerror = function() {
+                reject(new Error('Network error'));
+            };
+            
+            xhr.send(options.body || null);
+        });
+    };
+}
+
+// Polyfill for Promise (IE11 and older)
+if (!window.Promise) {
+    window.Promise = function(executor) {
+        var self = this;
+        self.state = 'pending';
+        self.value = undefined;
+        self.handlers = [];
+        
+        function resolve(result) {
+            if (self.state === 'pending') {
+                self.state = 'fulfilled';
+                self.value = result;
+                self.handlers.forEach(handle);
+                self.handlers = null;
+            }
+        }
+        
+        function reject(error) {
+            if (self.state === 'pending') {
+                self.state = 'rejected';
+                self.value = error;
+                self.handlers.forEach(handle);
+                self.handlers = null;
+            }
+        }
+        
+        function handle(handler) {
+            if (self.state === 'pending') {
+                self.handlers.push(handler);
+            } else {
+                if (self.state === 'fulfilled' && typeof handler.onFulfilled === 'function') {
+                    handler.onFulfilled(self.value);
+                }
+                if (self.state === 'rejected' && typeof handler.onRejected === 'function') {
+                    handler.onRejected(self.value);
+                }
+            }
+        }
+        
+        this.then = function(onFulfilled, onRejected) {
+            return new Promise(function(resolve, reject) {
+                handle({
+                    onFulfilled: function(result) {
+                        if (onFulfilled) {
+                            try {
+                                resolve(onFulfilled(result));
+                            } catch (ex) {
+                                reject(ex);
+                            }
+                        } else {
+                            resolve(result);
+                        }
+                    },
+                    onRejected: function(error) {
+                        if (onRejected) {
+                            try {
+                                resolve(onRejected(error));
+                            } catch (ex) {
+                                reject(ex);
+                            }
+                        } else {
+                            reject(error);
+                        }
+                    }
+                });
+            });
+        };
+        
+        this.catch = function(onRejected) {
+            return this.then(null, onRejected);
+        };
+        
+        executor(resolve, reject);
+    };
+    
+    Promise.resolve = function(value) {
+        return new Promise(function(resolve) {
+            resolve(value);
+        });
+    };
+    
+    Promise.reject = function(error) {
+        return new Promise(function(resolve, reject) {
+            reject(error);
+        });
+    };
+}
+
+// Polyfill for Promise.prototype.finally (not supported in IE)
+if (window.Promise && !Promise.prototype.finally) {
+    Promise.prototype.finally = function(callback) {
+        var constructor = this.constructor;
+        return this.then(
+            function(value) {
+                return constructor.resolve(callback()).then(function() {
+                    return value;
+                });
+            },
+            function(reason) {
+                return constructor.resolve(callback()).then(function() {
+                    throw reason;
+                });
+            }
+        );
+    };
+}
 
 // Global variables
-let currentShortUrl = '';
-let analyticsRefreshTimer = null;
-let analyticsRefreshEndAt = 0;
-let bulkCsvObjectUrl = null;
+var currentShortUrl = '';
+var analyticsRefreshTimer = null;
+var analyticsRefreshEndAt = 0;
+var bulkCsvObjectUrl = null;
 
 // DOM Elements
-const shortenForm = document.getElementById('shortenForm');
-const loading = document.getElementById('loading');
-const result = document.getElementById('result');
-const qrCode = document.getElementById('qrCode');
+var shortenForm = document.getElementById('shortenForm');
+var loading = document.getElementById('loading');
+var result = document.getElementById('result');
+var qrCode = document.getElementById('qrCode');
 
 // Initialize app
 document.addEventListener('DOMContentLoaded', function() {
     // Set minimum date to today for expiry date
-    const today = new Date().toISOString().split('T')[0];
-    const expiresAtElement = document.getElementById('expiresAt');
+    var today = new Date().toISOString().split('T')[0];
+    var expiresAtElement = document.getElementById('expiresAt');
     if (expiresAtElement) {
         expiresAtElement.setAttribute('min', today);
     }
     
     // Add form submit handler
-    shortenForm.addEventListener('submit', handleShortenForm);
+    if (shortenForm) {
+        shortenForm.addEventListener('submit', handleShortenForm);
+    }
     
-    // Add smooth scrolling for navigation
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
+    // Add smooth scrolling for navigation (with fallback for older browsers)
+    var anchors = document.querySelectorAll('a[href^="#"]');
+    for (var i = 0; i < anchors.length; i++) {
+        anchors[i].addEventListener('click', function (e) {
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
+            var target = document.querySelector(this.getAttribute('href'));
             if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                // Check if smooth scrolling is supported
+                if ('scrollBehavior' in document.documentElement.style) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                } else {
+                    // Fallback for older browsers
+                    target.scrollIntoView();
+                }
             }
         });
-    });
+    }
     
     // Add event delegation for all button and element clicks
     document.addEventListener('click', function(e) {
-        const element = e.target.closest('[data-action]');
-        if (!element) return;
+        var element = e.target;
         
-        const action = element.dataset.action;
+        // Polyfill for closest() method (not supported in IE)
+        while (element && element !== document) {
+            if (element.getAttribute && element.getAttribute('data-action')) {
+                break;
+            }
+            element = element.parentNode;
+        }
+        
+        if (!element || !element.getAttribute || !element.getAttribute('data-action')) return;
+        
+        var action = element.getAttribute('data-action');
         
         switch(action) {
             case 'copy':
-                copyToClipboard(element.dataset.url);
+                copyToClipboard(element.getAttribute('data-url'));
                 break;
             case 'generate-qr':
-                if (element.dataset.url) {
-                    generateQR(element.dataset.url);
+                if (element.getAttribute('data-url')) {
+                    generateQR(element.getAttribute('data-url'));
                 } else {
                     generateQR();
                 }
                 break;
             case 'view-analytics':
-                viewAnalytics(element.dataset.code);
+                viewAnalytics(element.getAttribute('data-code'));
                 break;
             case 'download-csv':
-                downloadSingleCSV(element.dataset.original, element.dataset.short, element.dataset.code);
+                downloadSingleCSV(element.getAttribute('data-original'), element.getAttribute('data-short'), element.getAttribute('data-code'));
                 break;
             case 'download-qr':
-                downloadQR(element.dataset.qrUrl, element.dataset.originalUrl);
+                downloadQR(element.getAttribute('data-qr-url'), element.getAttribute('data-original-url'));
                 break;
             case 'download-bulk-qr':
                 downloadBulkQRCanvas(element);
                 break;
             case 'generate-bulk-qr':
-                generateBulkQR(element.dataset.url, element);
+                generateBulkQR(element.getAttribute('data-url'), element);
                 break;
             case 'download-bulk-csv':
                 downloadBulkCSV();
@@ -122,12 +283,12 @@ function closeMobileMenu() {
 }
 
 // Handle URL shortening form submission
-async function handleShortenForm(e) {
+function handleShortenForm(e) {
     e.preventDefault();
     
-    let originalUrl = document.getElementById('url').value.trim();
-    const customAlias = document.getElementById('customAlias').value;
-    const expiresAt = document.getElementById('expiresAt').value;
+    var originalUrl = document.getElementById('url').value.trim();
+    var customAlias = document.getElementById('customAlias').value;
+    var expiresAt = document.getElementById('expiresAt').value;
 
     
     // Normalize and validate URL
@@ -148,59 +309,64 @@ async function handleShortenForm(e) {
     result.style.display = 'none';
     qrCode.innerHTML = '';
     
-    try {
-        const response = await fetch('/api/shorten', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                url: originalUrl,
-                customAlias,
-                expiresAt
-            })
+    fetch('/api/shorten', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            url: originalUrl,
+            customAlias: customAlias,
+            expiresAt: expiresAt
+        })
+    })
+    .then(function(response) {
+        return response.json().then(function(data) {
+            return { response: response, data: data };
         });
-        
-        const data = await response.json();
+    })
+    .then(function(result) {
+        var response = result.response;
+        var data = result.data;
         
         if (response.ok) {
             currentShortUrl = data.shortUrl;
-            let message = `
-                <h3>✅ URL Shortened Successfully!</h3>
-                <p><strong>Short URL:</strong> <a href="${data.shortUrl}" target="_blank" class="short-url">${data.shortUrl}</a></p>
-                <p><strong>Original URL:</strong> ${data.originalUrl}</p>
-                <p><strong>Short Code:</strong> ${data.shortCode}</p>`;
+            var message = '<h3>✅ URL Shortened Successfully!</h3>' +
+                '<p><strong>Short URL:</strong> <a href="' + data.shortUrl + '" target="_blank" class="short-url">' + data.shortUrl + '</a></p>' +
+                '<p><strong>Original URL:</strong> ' + data.originalUrl + '</p>' +
+                '<p><strong>Short Code:</strong> ' + data.shortCode + '</p>';
             
             if (data.message) {
-                message += `<p style="color: #ff9800; font-style: italic;">ℹ️ ${data.message}</p>`;
+                message += '<p style="color: #ff9800; font-style: italic;">ℹ️ ' + data.message + '</p>';
             }
             
-            message += `
-                <div style="margin-top: 1rem;">
-                    <button data-action="copy" data-url="${data.shortUrl}" class="btn">📋 Copy Link</button>
-                    <button data-action="generate-qr" data-url="${data.shortUrl}" class="btn btn-secondary">📱 QR Code</button>
-                    <button data-action="view-analytics" data-code="${data.shortCode}" class="btn btn-secondary">📊 Analytics</button>
-                    <button data-action="download-csv" data-original="${data.originalUrl}" data-short="${data.shortUrl}" data-code="${data.shortCode}" class="btn btn-secondary">💾 Download CSV</button>
-                </div>`;
+            message += '<div style="margin-top: 1rem;">' +
+                '<button data-action="copy" data-url="' + data.shortUrl + '" class="btn">📋 Copy Link</button>' +
+                '<button data-action="generate-qr" data-url="' + data.shortUrl + '" class="btn btn-secondary">📱 QR Code</button>' +
+                '<button data-action="view-analytics" data-code="' + data.shortCode + '" class="btn btn-secondary">📊 Analytics</button>' +
+                '<button data-action="download-csv" data-original="' + data.originalUrl + '" data-short="' + data.shortUrl + '" data-code="' + data.shortCode + '" class="btn btn-secondary">💾 Download CSV</button>' +
+                '</div>';
             
             showResult(message, 'success');
             
             // Automatically generate QR code
-            setTimeout(() => {
+            setTimeout(function() {
                 generateQR(data.shortUrl);
             }, 500);
         } else {
             showResult(data.error || 'An error occurred while shortening the URL', 'error');
         }
-    } catch (error) {
+    })
+    .catch(function(error) {
         console.error('Error:', error);
         showResult('Network error. Please try again.', 'error');
-    } finally {
+    })
+    .finally(function() {
         loading.style.display = 'none';
-    }
+    });
 }
 
-// Validate URL format
+// Validate URL format with improved browser compatibility
 function isValidUrl(string) {
     // Add protocol if missing
     if (!string.startsWith('http://') && !string.startsWith('https://')) {
@@ -211,7 +377,14 @@ function isValidUrl(string) {
         const url = new URL(string);
         return url.protocol === 'http:' || url.protocol === 'https:';
     } catch (_) {
-        return false;
+        // Fallback for browsers that don't support URL constructor
+        const pattern = new RegExp('^(https?:\/\/)?'+ // protocol
+            '((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|'+ // domain name
+            '((\d{1,3}\.){3}\d{1,3}))'+ // OR ip (v4) address
+            '(\:\d+)?(\/[-a-z\d%_.~+]*)*'+ // port and path
+            '(\?[;&a-z\d%_.~+=-]*)?'+ // query string
+            '(\#[-a-z\d_]*)?$','i'); // fragment locator
+        return pattern.test(string);
     }
 }
 
@@ -233,20 +406,55 @@ function showResult(message, type = 'success') {
     result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-// Copy to clipboard
-async function copyToClipboard(text) {
+// Copy to clipboard with improved browser compatibility
+function copyToClipboard(text) {
+    // Check if Clipboard API is available
+    if (navigator.clipboard && window.isSecureContext) {
+        // Use modern Clipboard API
+        navigator.clipboard.writeText(text)
+            .then(() => {
+                showNotification('✅ Copied to clipboard!');
+            })
+            .catch(err => {
+                console.error('Clipboard API error:', err);
+                fallbackCopyToClipboard(text);
+            });
+    } else {
+        // Use fallback method for older browsers or non-secure contexts
+        fallbackCopyToClipboard(text);
+    }
+}
+
+// Fallback copy method for older browsers
+function fallbackCopyToClipboard(text) {
     try {
-        await navigator.clipboard.writeText(text);
-        showNotification('✅ Copied to clipboard!');
-    } catch (err) {
-        // Fallback for older browsers
         const textArea = document.createElement('textarea');
         textArea.value = text;
+        
+        // Make the textarea out of viewport
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
         document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand('copy');
+        
+        // Check if the browser supports selection
+        if (document.body.createTextRange) {
+            // IE
+            const range = document.body.createTextRange();
+            range.moveToElementText(textArea);
+            range.select();
+            document.execCommand('copy');
+        } else if (window.getSelection && document.createRange) {
+            // Non-IE browsers
+            textArea.select();
+            document.execCommand('copy');
+        }
+        
         document.body.removeChild(textArea);
         showNotification('✅ Copied to clipboard!');
+    } catch (err) {
+        console.error('Fallback clipboard error:', err);
+        showNotification('❌ Unable to copy to clipboard. Please copy manually.');
     }
 }
 
@@ -817,8 +1025,9 @@ function handleFileUpload(event) {
                 html += `<p style="color: #ff9800; font-style: italic;">ℹ️ ${data.message}</p>`;
             }
             html += `
-                <div style="max-height: 300px; overflow-y: auto; margin: 1rem 0;">
-                    <table style="width: 100%; border-collapse: collapse;">
+                <div class="table-container">
+                    <div style="max-height: 300px; overflow-y: auto; margin: 1rem 0;">
+                        <table style="width: 100%; border-collapse: collapse;">
                         <thead>
                             <tr style="background: linear-gradient(135deg, var(--cyber-blue), var(--cyber-purple)); color: white;">
                                 <th style="padding: 0.8rem; border: 1px solid var(--cyber-blue); font-family: 'Orbitron', monospace; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 0 10px currentColor;">🌐 Original URL</th>
@@ -848,6 +1057,7 @@ function handleFileUpload(event) {
             html += `
                         </tbody>
                     </table>
+                    </div>
                 </div>
                 <button type="button" data-action="download-bulk-csv" class="btn">💾 Download CSV</button>
             `;
@@ -1040,8 +1250,9 @@ async function bulkShorten() {
             }
             
             html += `
-                <div style="max-height: 300px; overflow-y: auto; margin: 1rem 0;">
-                    <table style="width: 100%; border-collapse: collapse;">
+                <div class="table-container">
+                    <div style="max-height: 300px; overflow-y: auto; margin: 1rem 0;">
+                        <table style="width: 100%; border-collapse: collapse;">
                         <thead>
                             <tr style="background: #f8f9fa;">
                                 <th style="padding: 0.5rem; border: 1px solid #ddd;">Original URL</th>
@@ -1073,6 +1284,7 @@ async function bulkShorten() {
             html += `
                         </tbody>
                     </table>
+                    </div>
                 </div>
                 <button type="button" data-action="download-bulk-csv" class="btn">💾 Download CSV</button>
             `;

@@ -3,11 +3,26 @@ table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
+    /* Fallback for older browsers */
+    background: rgba(15, 23, 42, 0.95);
+    background: -webkit-linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.9));
+    background: -moz-linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.9));
+    background: -o-linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.9));
     background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.9));
+    /* Backdrop filter with fallbacks */
+    -webkit-backdrop-filter: blur(25px);
     backdrop-filter: blur(25px);
+    /* Border radius with fallbacks */
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
     border-radius: 20px;
     overflow: hidden;
-    border: 3px solid var(--cyber-blue);
+    /* CSS custom property fallback */
+    border: 3px solid #00d4ff;
+    border: 3px solid var(--cyber-blue, #00d4ff);
+    /* Box shadow with vendor prefixes */
+    -webkit-box-shadow: 0 15px 40px rgba(0, 255, 255, 0.4), inset 0 1px 0 rgba(0, 255, 255, 0.1);
+    -moz-box-shadow: 0 15px 40px rgba(0, 255, 255, 0.4), inset 0 1px 0 rgba(0, 255, 255, 0.1);
     box-shadow: 0 15px 40px rgba(0, 255, 255, 0.4), inset 0 1px 0 rgba(0, 255, 255, 0.1);
     position: relative;
 }
@@ -19,9 +34,34 @@ table::before {
     left: 0;
     right: 0;
     bottom: 0;
+    /* Gradient with vendor prefixes */
+    background: rgba(0, 255, 255, 0.05);
+    background: -webkit-linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.05), transparent);
+    background: -moz-linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.05), transparent);
+    background: -o-linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.05), transparent);
     background: linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.05), transparent);
     pointer-events: none;
+    /* Animation with vendor prefixes */
+    -webkit-animation: tableShimmer 3s ease-in-out infinite;
+    -moz-animation: tableShimmer 3s ease-in-out infinite;
+    -o-animation: tableShimmer 3s ease-in-out infinite;
     animation: tableShimmer 3s ease-in-out infinite;
+}
+
+/* Keyframes with vendor prefixes */
+@-webkit-keyframes tableShimmer {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}
+
+@-moz-keyframes tableShimmer {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}
+
+@-o-keyframes tableShimmer {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
 }
 
 @keyframes tableShimmer {
@@ -37,33 +77,65 @@ th, td {
 }
 
 th {
+    /* Background gradient with fallbacks */
+    background: rgba(0, 212, 255, 0.8);
+    background: -webkit-linear-gradient(135deg, rgba(0, 212, 255, 0.8), rgba(139, 92, 246, 0.8));
+    background: -moz-linear-gradient(135deg, rgba(0, 212, 255, 0.8), rgba(139, 92, 246, 0.8));
+    background: -o-linear-gradient(135deg, rgba(0, 212, 255, 0.8), rgba(139, 92, 246, 0.8));
     background: linear-gradient(135deg, rgba(0, 212, 255, 0.8), rgba(139, 92, 246, 0.8));
     font-weight: 700;
     color: #ffffff;
-    font-family: 'Orbitron', monospace;
+    /* Font family with fallbacks */
+    font-family: 'Orbitron', 'Courier New', monospace;
     text-transform: uppercase;
     letter-spacing: 2px;
     font-size: 0.95rem;
+    /* Text shadow with fallbacks */
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    border-bottom: 3px solid var(--cyber-blue);
+    /* Border with CSS custom property fallback */
+    border-bottom: 3px solid #00d4ff;
+    border-bottom: 3px solid var(--cyber-blue, #00d4ff);
 }
 
 th:first-child {
+    /* Border radius with vendor prefixes */
+    -webkit-border-top-left-radius: 18px;
+    -moz-border-radius-topleft: 18px;
     border-top-left-radius: 18px;
 }
 
 th:last-child {
+    /* Border radius with vendor prefixes */
+    -webkit-border-top-right-radius: 18px;
+    -moz-border-radius-topright: 18px;
     border-top-right-radius: 18px;
 }
 
 tbody tr {
+    /* Transition with vendor prefixes */
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
     transition: all 0.4s ease;
     position: relative;
 }
 
 tbody tr:hover {
+    /* Background gradient with fallbacks */
+    background: rgba(0, 255, 255, 0.2);
+    background: -webkit-linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(139, 92, 246, 0.2));
+    background: -moz-linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(139, 92, 246, 0.2));
+    background: -o-linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(139, 92, 246, 0.2));
     background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(139, 92, 246, 0.2));
+    /* Transform with vendor prefixes */
+    -webkit-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+    -o-transform: scale(1.02);
     transform: scale(1.02);
+    /* Box shadow with vendor prefixes */
+    -webkit-box-shadow: 0 8px 25px rgba(0, 255, 255, 0.3);
+    -moz-box-shadow: 0 8px 25px rgba(0, 255, 255, 0.3);
     box-shadow: 0 8px 25px rgba(0, 255, 255, 0.3);
 }
 
@@ -73,6 +145,10 @@ tbody tr:hover td {
 }
 
 td {
+    /* Transition with vendor prefixes */
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
     transition: all 0.4s ease;
     color: #00ffff;
     font-weight: 600;
@@ -83,16 +159,29 @@ td {
 
 /* Enhanced URL styling in tables */
 .short-url {
-    color: var(--cyber-blue) !important;
+    /* CSS custom property with fallback */
+    color: #00d4ff !important;
+    color: var(--cyber-blue, #00d4ff) !important;
     text-decoration: none;
     font-weight: 600;
+    /* Transition with vendor prefixes */
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
     position: relative;
 }
 
 .short-url:hover {
     color: #ffffff !important;
-    text-shadow: 0 0 10px var(--cyber-blue);
+    /* Text shadow with CSS custom property fallback */
+    text-shadow: 0 0 10px #00d4ff;
+    text-shadow: 0 0 10px var(--cyber-blue, #00d4ff);
+    /* Transform with vendor prefixes */
+    -webkit-transform: scale(1.05);
+    -moz-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    -o-transform: scale(1.05);
     transform: scale(1.05);
 }
 
@@ -102,4 +191,73 @@ td {
     --cyber-purple: #8b5cf6;
     --cyber-pink: #ec4899;
     --cyber-green: #10b981;
+}
+
+/* Mobile Table Responsiveness */
+@media (max-width: 768px) {
+    .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 1rem 0;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 255, 255, 0.2);
+        position: relative;
+    }
+    
+    table {
+        min-width: 600px;
+        font-size: 0.85rem;
+    }
+    
+    th, td {
+        padding: 0.8rem 0.6rem;
+        white-space: nowrap;
+    }
+    
+    th {
+        font-size: 0.8rem;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+    
+    /* Mobile table scroll indicator */
+    .table-container::after {
+        content: '← Scroll to see more →';
+        position: absolute;
+        bottom: -25px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.7rem;
+        color: var(--cyber-blue);
+        opacity: 0.7;
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0%, 100% { opacity: 0.7; }
+        50% { opacity: 1; }
+    }
+    
+    /* Mobile action buttons in tables */
+    .action-btn {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.75rem;
+        margin: 0.1rem;
+        min-width: 32px;
+        min-height: 32px;
+        border-radius: 4px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Mobile URL cell styling */
+    td a {
+        word-break: break-all;
+        display: block;
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 }

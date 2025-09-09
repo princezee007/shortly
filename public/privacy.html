@@ -12,7 +12,7 @@
     </script>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
     <title>Privacy Policy - iShortly</title>
     <meta name="description" content="iShortly Privacy Policy - Learn how we protect your data while using our free URL shortener with analytics, custom domains, and branded short links. Secure link shortening with GDPR compliance.">
     <meta name="keywords" content="privacy policy, data protection, iShortly privacy, GDPR compliance, data security, URL shortener privacy, free URL shortener, secure link shortener, URL shortener with analytics, custom URL shortener, branded URL shortener, URL shortener for businesses, link shortener security">
@@ -265,18 +265,244 @@
             color: var(--cyber-yellow);
         }
 
+        /* Mobile Navigation */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--link-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 999;
+            padding: 1rem 0;
+        }
+        
+        .mobile-nav.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .mobile-nav a {
+            display: block;
+            padding: 1rem 2rem;
+            color: var(--link-color);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-nav a:hover {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--link-hover);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            .data-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 1.5rem;
+            }
+        }
+        
         @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .header {
+                padding: 2rem 1.5rem;
+            }
+            
             .header h1 {
                 font-size: 2rem;
+                line-height: 1.2;
+                margin-bottom: 1rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
+                line-height: 1.6;
+            }
+            
+            .content-section {
+                padding: 2rem 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .content-section h2 {
+                font-size: 1.6rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .content-section h3 {
+                font-size: 1.3rem;
+                margin: 1.5rem 0 1rem 0;
+            }
+            
+            .content-section h4 {
+                font-size: 1.1rem;
+                margin: 1.2rem 0 0.5rem 0;
             }
             
             .data-grid {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .data-card {
+                padding: 1.2rem;
+            }
+            
+            .highlight-box,
+            .warning-box,
+            .info-box {
+                padding: 1.5rem;
+                margin: 1.5rem 0;
+            }
+            
+            .last-updated {
+                padding: 1rem;
+                margin: 1.5rem 0;
+                font-size: 0.9rem;
+            }
+            
+            .btn {
+                width: 100%;
+                margin: 0.5rem 0;
+                padding: 1rem;
+                font-size: 1rem;
             }
             
             .footer-links {
                 flex-direction: column;
                 gap: 1rem;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .container {
+                padding: 0.5rem;
+            }
+            
+            .header {
+                padding: 1.5rem 1rem;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .header p {
+                font-size: 0.9rem;
+                padding: 0 0.5rem;
+            }
+            
+            .content-section {
+                padding: 1.5rem 1rem;
+            }
+            
+            .content-section h2 {
+                font-size: 1.4rem;
+            }
+            
+            .content-section h3 {
+                font-size: 1.2rem;
+            }
+            
+            .content-section h4 {
+                font-size: 1rem;
+            }
+            
+            .data-card {
+                padding: 1rem;
+            }
+            
+            .highlight-box,
+            .warning-box,
+            .info-box {
+                padding: 1.2rem;
+            }
+            
+            .last-updated {
+                padding: 0.8rem;
+                font-size: 0.85rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .header p {
+                font-size: 0.85rem;
+            }
+            
+            .content-section h2 {
+                font-size: 1.2rem;
+            }
+            
+            .content-section h3 {
+                font-size: 1.1rem;
+            }
+            
+            .content-section h4 {
+                font-size: 0.95rem;
+            }
+            
+            .content-section p,
+            .content-section li {
+                font-size: 0.9rem;
+            }
+            
+            .data-card {
+                padding: 0.8rem;
+            }
+            
+            .highlight-box,
+            .warning-box,
+            .info-box {
+                padding: 1rem;
+            }
+            
+            .last-updated {
+                padding: 0.6rem;
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -288,14 +514,26 @@
             <a href="index.html" style="text-decoration: none;">
                 <img src="logo.svg" alt="iShortly" style="height: 40px; width: auto;">
             </a>
-            <nav style="display: flex; gap: 2rem;">
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                ☰
+            </button>
+            <nav class="desktop-nav" style="display: flex; gap: 2rem;">
                 <a href="index.html" style="color: var(--link-color); text-decoration: none; font-weight: 500; padding: 0.8rem 1.5rem; border-radius: 15px; transition: all 0.3s ease;">🏠 Home</a>
                 <a href="about.html" style="color: var(--link-color); text-decoration: none; font-weight: 500; padding: 0.8rem 1.5rem; border-radius: 15px; transition: all 0.3s ease;">🌟 About</a>
                 <a href="contact.html" style="color: var(--link-color); text-decoration: none; font-weight: 500; padding: 0.8rem 1.5rem; border-radius: 15px; transition: all 0.3s ease;">📧 Contact</a>
                 <a href="privacy.html" style="color: var(--link-hover); text-decoration: none; font-weight: 500; padding: 0.8rem 1.5rem; border-radius: 15px; background: rgba(255, 107, 157, 0.1); border: 1px solid var(--link-hover);">🔒 Privacy</a>
+                <a href="blog.html" style="color: var(--link-color); text-decoration: none; font-weight: 500; padding: 0.8rem 1.5rem; border-radius: 15px; transition: all 0.3s ease;">📝 Blog</a>
             </nav>
         </div>
     </header>
+    
+    <nav class="mobile-nav" id="mobileNav">
+         <a href="index.html">🏠 Home</a>
+         <a href="about.html">🌟 About</a>
+         <a href="contact.html">📧 Contact</a>
+         <a href="privacy.html">🔒 Privacy</a>
+         <a href="blog.html">📝 Blog</a>
+     </nav>
 
     <div class="container" style="margin-top: 100px;">
         <!-- Header -->
@@ -582,5 +820,31 @@
             </p>
         </footer>
     </div>
+    <script>
+        function toggleMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.classList.toggle('active');
+        }
+        
+        function closeMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.classList.remove('active');
+        }
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileNav = document.getElementById('mobileNav');
+            const toggleButton = document.querySelector('.mobile-menu-toggle');
+            
+            if (!mobileNav.contains(event.target) && !toggleButton.contains(event.target)) {
+                closeMobileMenu();
+            }
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-nav a').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+    </script>
 </body>
 </html>

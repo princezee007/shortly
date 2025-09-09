@@ -26,6 +26,7 @@ const helmetConfig = {
       scriptSrc: ["'self'", "https://www.googletagmanager.com", "'unsafe-inline'"],
       scriptSrcAttr: ["'none'"],
       styleSrc: ["'self'", "https:", "'unsafe-inline'"],
+      connectSrc: ["'self'"],
       // Allow navigation to any URL for redirects
       navigateTo: null
     },
@@ -89,13 +90,21 @@ const limiter = rateLimit({
 app.use('/api/', limiter);
 
 // MongoDB connection with error handling
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/shortly', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).catch(err => {
-  console.warn('MongoDB connection failed:', err.message);
-  console.log('Running in demo mode without database functionality');
-});
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of 30s
+    socketTimeoutMS: 45000, // Close sockets after 45s of inactivity
+    maxPoolSize: 10, // Maintain up to 10 socket connections
+    bufferCommands: false // Disable mongoose buffering
+  }).catch(err => {
+    console.warn('MongoDB connection failed:', err.message);
+    console.log('Running in demo mode without database functionality');
+  });
+} else {
+  console.log('No MONGODB_URI provided, running in demo mode');
+}
 
 // Handle MongoDB connection events
 mongoose.connection.on('connected', () => {
@@ -209,7 +218,7 @@ const recordAnalytics = async (req, urlDoc) => {
 
 // Serve homepage
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
 
 // API: Shorten URL
@@ -229,13 +238,18 @@ app.post('/api/shorten', async (req, res) => {
 
     // Check if database is available
     if (!dbAvailable) {
-      // Demo mode - return mock response
+      // Demo mode - return mock response with working redirect
       const shortCode = customAlias || generateShortCode();
+      
+      // Store the URL mapping in memory for demo purposes
+      if (!global.demoUrls) global.demoUrls = new Map();
+      global.demoUrls.set(shortCode, url);
+      
       return res.json({
         shortUrl: `${req.BASE_URL}/${shortCode}`,
         originalUrl: url,
         shortCode: shortCode,
-        message: 'Demo mode - URL shortening requires database connection'
+        message: 'Demo mode - URLs are stored temporarily in memory'
       });
     }
 
@@ -546,7 +560,13 @@ app.get('/:shortCode', async (req, res) => {
     
     // Check if database is available
     if (!dbAvailable) {
-      // Demo mode - redirect to a demo page or show message
+      // Demo mode - check if URL exists in memory
+      if (global.demoUrls && global.demoUrls.has(shortCode)) {
+        const originalUrl = global.demoUrls.get(shortCode);
+        return res.redirect(originalUrl);
+      }
+      
+      // URL not found in demo mode
       return res.send(`
         <!DOCTYPE html>
         <html>
@@ -565,10 +585,10 @@ app.get('/:shortCode', async (req, res) => {
           <div class="container">
             <h1>🔗 Shortly Demo Mode</h1>
             <div class="demo-message">
-              ⚠️ This is a demo environment. URL redirection requires database connection.
+              ⚠️ This is a demo environment. Short URL not found in memory.
             </div>
             <p>Short code: <strong>${shortCode}</strong></p>
-            <p>In a production environment, this would redirect you to the original URL.</p>
+            <p>Create a new short URL to test the functionality.</p>
             <a href="/" class="btn">🏠 Back to Homepage</a>
           </div>
         </body>
@@ -579,7 +599,7 @@ app.get('/:shortCode', async (req, res) => {
     const url = await Url.findOne({ shortCode });
     
     if (!url) {
-      return res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
+      return res.status(404).sendFile(path.join(__dirname, '..', 'public', '404.html'));
     }
 
     // Check if expired
